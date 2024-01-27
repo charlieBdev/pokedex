@@ -6,7 +6,11 @@ const queryClient = new QueryClient();
 function App() {
 	return (
 		<>
-			<h1 className='text-3xl font-bold underline'>Pokemon App</h1>
+			<div className='border'>
+				<h1 className='p-3 text-center text-3xl font-bold underline'>
+					Pokemon Quiz
+				</h1>
+			</div>
 			<QueryClientProvider client={queryClient}>
 				<PokemonList />
 			</QueryClientProvider>
