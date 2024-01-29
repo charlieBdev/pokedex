@@ -13,7 +13,7 @@ const PokemonList = () => {
 	const [gameOver, setGameOver] = useState(false);
 	const [time, setTime] = useState(60);
 
-	const { data, isLoading, isError, refetch } = useQuery({
+	const { data, isLoading, isError, error, refetch } = useQuery({
 		queryKey: ['pokemon'],
 		queryFn: fetchPokemon,
 	});
@@ -34,11 +34,12 @@ const PokemonList = () => {
 	useEffect(() => {
 		let timerInterval;
 
-		if (!gameOver && time > 0 && !isLoadingNext) {
+		if (!gameOver && time > 0 && !isLoading && !isLoadingNext) {
 			timerInterval = setInterval(() => {
-				setTime((prevTime) => prevTime - 1);
-
-				if (time === 0) {
+				// setTime((prevTime) => prevTime - 1);
+				setTime(time - 1);
+				// console.log(time, '<<< time');
+				if (time - 1 === 0) {
 					setGameOver(true);
 					clearInterval(timerInterval);
 				}
@@ -47,14 +48,14 @@ const PokemonList = () => {
 
 		// Cleanup the interval when the component unmounts or when the game is over
 		return () => clearInterval(timerInterval);
-	}, [time, gameOver, isLoadingNext]);
+	}, [time, gameOver, isLoading, isLoadingNext]);
 
 	if (isLoading) {
 		return <p className='text-center p-3'>Loading...</p>;
 	}
 
 	if (isError) {
-		return <p className='text-center p-3'>Error</p>;
+		return <p className='text-center p-3'>{error}</p>;
 	}
 
 	return (
@@ -77,7 +78,9 @@ const PokemonList = () => {
 			</div>
 			<button
 				onClick={handleClickNext}
-				className='border-2 border-pink-300 shadow-lg py-1 px-3 mx-auto rounded hover:cursor-pointer hover:shadow-xl'
+				className={`${
+					gameOver ? 'animate-pulse' : ''
+				} border-2 border-pink-300 shadow-lg py-1 px-3 mx-auto rounded hover:cursor-pointer hover:shadow-xl`}
 				disabled={isLoadingNext || !isAnyClicked}
 			>
 				{gameOver ? 'Play again' : isLoadingNext ? 'Loading' : 'Next'}
