@@ -1,113 +1,96 @@
+/* eslint-disable no-unused-vars */
 import PokemonCard from './PokemonCard';
 import { useQuery } from '@tanstack/react-query';
-import Question from './Question';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { fetchPokemon, getRandomIndex } from '../utils';
+import Question from './Question';
 
-// eslint-disable-next-line react/prop-types
 const PokemonList = () => {
+	const [randomIndex, setRandomIndex] = useState(getRandomIndex());
 	const [isAnyClicked, setIsAnyClicked] = useState(false);
-	const [correct, setCorrect] = useState(null);
+	const [isLoadingNext, setIsLoadingNext] = useState(false);
 	const [score, setScore] = useState(0);
 	const [gameOver, setGameOver] = useState(false);
-	// eslint-disable-next-line react-hooks/rules-of-hooks
-	let { data, isLoading, isError, refetch } = useQuery({
+	const [time, setTime] = useState(60);
+
+	const { data, isLoading, isError, refetch } = useQuery({
 		queryKey: ['pokemon'],
 		queryFn: fetchPokemon,
 	});
 
-	const [randomIndex, setRandomIndex] = useState(getRandomIndex());
-	const randomPokemon = data?.[randomIndex].name;
-
-	const handleClick = (e) => {
-		e.preventDefault();
-		data = [];
-		refetch();
-		setIsAnyClicked(false);
-		setCorrect(null);
-		const newIndex = getRandomIndex();
-		setRandomIndex(newIndex);
+	const handleClickNext = async () => {
 		if (gameOver) {
 			setScore(0);
-			setGameOver(false);
+			setTime(60);
 		}
+		setGameOver(false);
+		setIsLoadingNext(true);
+		await refetch();
+		setIsLoadingNext(false);
+		setRandomIndex(getRandomIndex());
+		setIsAnyClicked(false);
 	};
 
+	useEffect(() => {
+		let timerInterval;
+
+		if (!gameOver && time > 0 && !isLoadingNext) {
+			timerInterval = setInterval(() => {
+				setTime((prevTime) => prevTime - 1);
+
+				if (time === 0) {
+					setGameOver(true);
+					clearInterval(timerInterval);
+				}
+			}, 1000);
+		}
+
+		// Cleanup the interval when the component unmounts or when the game is over
+		return () => clearInterval(timerInterval);
+	}, [time, gameOver, isLoadingNext]);
+
 	if (isLoading) {
-		return (
-			<div>
-				<p className='text-center p-3'>Loading...</p>
-				<div className='flex flex-wrap justify-center gap-3'>
-					<div className='border-4 rounded w-1/4 h-full'>
-						<div className='bg-neutral-500 h-full'></div>
-					</div>
-					<div className='border-4 rounded w-1/4 h-full'>
-						<div className='bg-neutral-500 h-full'></div>
-					</div>
-					<div className='border-4 rounded w-1/4 h-full'>
-						<div className='bg-neutral-500 h-full'></div>
-					</div>
-				</div>
-			</div>
-		);
+		return <p className='text-center p-3'>Loading...</p>;
 	}
 
 	if (isError) {
-		return (
-			<div className='text-center p-3'>
-				<p>Error fetching data</p>
-				<button
-					className='border-2 rounded py-1 px-3'
-					onClick={() => refetch()}
-				>
-					Refetch
-				</button>
-			</div>
-		);
+		return <p className='text-center p-3'>Error</p>;
 	}
 
 	return (
-		<div>
-			{<Question name={randomPokemon} />}
+		<div className='flex flex-col gap-3'>
+			<Question correctAnswer={data[randomIndex].name} />
 			<div className='flex flex-wrap justify-center gap-3'>
-				{!isLoading &&
-					!isError &&
-					data?.map((query, index) => (
-						<PokemonCard
-							key={query.id}
-							name={query.name}
-							url={query.sprites.front_default}
-							isCorrect={index === randomIndex}
-							isAnyClicked={isAnyClicked}
-							setIsAnyClicked={setIsAnyClicked}
-							setCorrect={setCorrect}
-							score={score}
-							setScore={setScore}
-							setGameOver={setGameOver}
-						/>
-					))}
+				{data.map((query, index) => (
+					<PokemonCard
+						key={query.id}
+						name={query.name}
+						url={query.sprites.front_default}
+						isCorrect={index === randomIndex}
+						isAnyClicked={isAnyClicked}
+						setIsAnyClicked={setIsAnyClicked}
+						score={score}
+						setScore={setScore}
+						setGameOver={setGameOver}
+					/>
+				))}
 			</div>
-			<div className='text-center p-3'>
-				<p className='p-3 text-center'>
-					{score} {score === 1 ? 'point' : 'points'}
-				</p>
-				{isLoading && <p className='text-center p-3'>Loading...</p>}
-				{isAnyClicked ? (
-					<>
-						<p className='p-3'>{correct ? 'Correct!' : 'Incorrect!'}</p>
-					</>
-				) : null}
-				<button
-					className={`${
-						isAnyClicked ? '' : 'text-neutral-500'
-					} border-2 rounded py-1 px-3`}
-					onClick={(e) => handleClick(e)}
-					disabled={!isAnyClicked}
-				>
-					{gameOver ? 'Play again' : 'Next'}
-				</button>
-			</div>
-			{gameOver && <p className='text-center p-3'>Game Over!</p>}
+			<button
+				onClick={handleClickNext}
+				className='border-2 border-pink-300 shadow-lg py-1 px-3 mx-auto rounded hover:cursor-pointer hover:shadow-xl'
+				disabled={isLoadingNext || !isAnyClicked}
+			>
+				{gameOver ? 'Play again' : isLoadingNext ? 'Loading' : 'Next'}
+			</button>
+			<p className='p-3 text-center'>
+				You have <span className='font-bold'>{score}</span>{' '}
+				{score === 1 ? 'point' : 'points'}.
+			</p>
+			<p className='p-3 text-center'>
+				<span className='font-bold'>{time}</span>{' '}
+				{time === 1 ? 'second' : 'seconds'} remaining.
+			</p>
+			{gameOver && <p className='p-3 text-center'>Game Over!</p>}
 		</div>
 	);
 };

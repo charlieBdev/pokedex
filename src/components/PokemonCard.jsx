@@ -1,36 +1,22 @@
 import { useState } from 'react';
 
+/* eslint-disable react/prop-types */
 const PokemonCard = ({
-	// eslint-disable-next-line react/prop-types
 	name,
-	// eslint-disable-next-line react/prop-types
 	url,
-	// eslint-disable-next-line react/prop-types
 	isCorrect,
-	// eslint-disable-next-line react/prop-types
 	isAnyClicked,
-	// eslint-disable-next-line react/prop-types
 	setIsAnyClicked,
-	// eslint-disable-next-line react/prop-types
-	setCorrect,
-	// eslint-disable-next-line react/prop-types
 	score,
-	// eslint-disable-next-line react/prop-types
 	setScore,
-	// eslint-disable-next-line react/prop-types
-	setGameOver,
+	setGameOver = { setGameOver },
 }) => {
-	// eslint-disable-next-line react/prop-types
-	const upperName = name[0].toUpperCase() + name.slice(1);
+	const [isClicked, setIsClicked] = useState(false);
 
-	const [clicked, setClicked] = useState(false);
-
-	const handleClick = (e) => {
-		e.preventDefault();
+	const handleClick = () => {
 		if (!isAnyClicked) {
+			setIsClicked(true);
 			setIsAnyClicked(true);
-			setClicked(true);
-			setCorrect(isCorrect);
 			if (isCorrect) {
 				setScore(score + 1);
 			} else {
@@ -41,13 +27,13 @@ const PokemonCard = ({
 
 	return (
 		<div
-			className={`border-4 ${
-				clicked ? (isCorrect ? 'border-green-400' : 'border-red-400') : ''
-			} rounded w-1/4 hover:cursor-pointer hover:shadow`}
-			onClick={(e) => handleClick(e)}
+			onClick={handleClick}
+			className={`relative border-4 border-pink-300 rounded w-24 h-24 hover:cursor-pointer shadow-lg hover:shadow-xl`}
 		>
-			<img src={url} alt={name} className='object-cover w-full h-full' />
-			<h2 className='text-center hidden'>{upperName}</h2>
+			<img src={url} alt={name} className='w-full h-full' />
+			<div className='absolute bottom-0 right-0'>
+				{isClicked ? (isCorrect ? '✅' : '❌') : ''}
+			</div>
 		</div>
 	);
 };
