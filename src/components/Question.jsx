@@ -4,7 +4,7 @@ const Question = ({ name }) => {
 	const upperName = name[0].toUpperCase() + name.slice(1);
 
 	return (
-		<div className='p-3 border'>
+		<div className='p-3'>
 			<h2 className='text-center'>
 				Which Pokemon is <span className='font-bold'>{upperName}</span>?
 			</h2>

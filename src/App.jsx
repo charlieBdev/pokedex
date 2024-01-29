@@ -6,7 +6,7 @@ const queryClient = new QueryClient();
 function App() {
 	return (
 		<>
-			<div className='border'>
+			<div>
 				<h1 className='p-3 text-center text-3xl font-bold underline'>
 					Pokemon Quiz
 				</h1>
