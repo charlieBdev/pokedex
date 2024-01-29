@@ -38,7 +38,6 @@ const PokemonList = () => {
 			timerInterval = setInterval(() => {
 				// setTime((prevTime) => prevTime - 1);
 				setTime(time - 1);
-				// console.log(time, '<<< time');
 				if (time - 1 === 0) {
 					setGameOver(true);
 					clearInterval(timerInterval);
