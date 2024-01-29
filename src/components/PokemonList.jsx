@@ -86,11 +86,11 @@ const PokemonList = () => {
 			</button>
 			<p className='p-3 text-center'>
 				You have <span className='font-bold'>{score}</span>{' '}
-				{score === 1 ? 'point' : 'points'}.
+				{score === 1 ? 'point' : 'points'}
 			</p>
 			<p className='p-3 text-center'>
 				<span className='font-bold'>{time}</span>{' '}
-				{time === 1 ? 'second' : 'seconds'} remaining.
+				{time === 1 ? 'second' : 'seconds'} remaining
 			</p>
 			{gameOver && <p className='p-3 text-center'>Game Over!</p>}
 		</div>
