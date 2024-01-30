@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { fetchPokemon, getRandomIndex } from '../utils';
 import Question from './Question';
+import { motion } from 'framer-motion';
 
 const PokemonList = () => {
 	const [randomIndex, setRandomIndex] = useState(getRandomIndex());
@@ -12,54 +13,67 @@ const PokemonList = () => {
 	const [score, setScore] = useState(0);
 	const [gameOver, setGameOver] = useState(false);
 	const [time, setTime] = useState(60);
+	const [gameStarted, setGameStarted] = useState(false);
 
-	const { data, isLoading, isError, error, refetch } = useQuery({
+	const { data, isLoading, isError, refetch } = useQuery({
 		queryKey: ['pokemon'],
 		queryFn: fetchPokemon,
 	});
 
-	const handleClickNext = async () => {
-		if (gameOver) {
-			setScore(0);
-			setTime(60);
-		}
+	const handleClickStart = async () => {
+		setScore(0);
+		setTime(60);
+		setGameStarted(true);
+		countDown(60);
+
 		setGameOver(false);
-		setIsLoadingNext(true);
-		await refetch();
-		setIsLoadingNext(false);
-		setRandomIndex(getRandomIndex());
-		setIsAnyClicked(false);
 	};
 
-	useEffect(() => {
-		let timerInterval;
-
-		if (!gameOver && time > 0 && !isLoading && !isLoadingNext) {
-			timerInterval = setInterval(() => {
-				// setTime((prevTime) => prevTime - 1);
-				setTime(time - 1);
-				if (time - 1 === 0) {
-					setGameOver(true);
-					clearInterval(timerInterval);
-				}
-			}, 1000);
+	const handleClickNext = async () => {
+		try {
+			setIsLoadingNext(true);
+			await refetch();
+			setRandomIndex(getRandomIndex());
+			setIsAnyClicked(false);
+		} finally {
+			setIsLoadingNext(false);
 		}
+	};
 
-		// Cleanup the interval when the component unmounts or when the game is over
-		return () => clearInterval(timerInterval);
-	}, [time, gameOver, isLoading, isLoadingNext]);
+	const countDown = (timeLeft) => {
+		let timer;
+		clearInterval(timer);
+
+		timer = setInterval(() => {
+			if (timeLeft > 0) {
+				timeLeft--;
+				setTime(timeLeft);
+			} else if (timeLeft === 0) {
+				setGameOver(true);
+				clearInterval(timer);
+				endGame();
+			}
+		}, 1000);
+	};
+
+	const endGame = () => {
+		setGameStarted(false);
+	};
 
 	if (isLoading) {
 		return <p className='text-center p-3'>Loading...</p>;
 	}
 
 	if (isError) {
-		return <p className='text-center p-3'>{error}</p>;
+		return <p className='text-center p-3'>Error</p>;
 	}
 
 	return (
 		<div className='flex flex-col gap-3'>
-			<Question correctAnswer={data[randomIndex].name} />
+			<Question
+				correctAnswer={data[randomIndex].name}
+				gameStarted={gameStarted}
+			/>
 			<div className='flex flex-wrap justify-center gap-3'>
 				{data.map((query, index) => (
 					<PokemonCard
@@ -71,28 +85,62 @@ const PokemonList = () => {
 						setIsAnyClicked={setIsAnyClicked}
 						score={score}
 						setScore={setScore}
+						gameOver={gameOver}
 						setGameOver={setGameOver}
+						countDown={countDown}
+						gameStarted={gameStarted}
+						index={index}
 					/>
 				))}
 			</div>
-			<button
-				onClick={handleClickNext}
-				className={`${
-					gameOver ? 'animate-pulse' : ''
-				} border-2 border-pink-300 shadow-lg py-1 px-3 mx-auto rounded hover:cursor-pointer hover:shadow-xl`}
-				disabled={isLoadingNext || !isAnyClicked}
-			>
-				{gameOver ? 'Play again' : isLoadingNext ? 'Loading' : 'Next'}
-			</button>
-			<p className='p-3 text-center'>
-				You have <span className='font-bold'>{score}</span>{' '}
-				{score === 1 ? 'point' : 'points'}
-			</p>
-			<p className='p-3 text-center'>
-				<span className='font-bold'>{time}</span>{' '}
-				{time === 1 ? 'second' : 'seconds'} remaining
-			</p>
-			{gameOver && <p className='p-3 text-center'>Game Over!</p>}
+			{!gameStarted ? (
+				<motion.button
+					whileTap={{
+						scale: 0.9,
+					}}
+					onClick={handleClickStart}
+					className='animate-pulse border-2 border-neutral-950 shadow-lg mx-auto w-28 h-14 rounded hover:cursor-pointer hover:shadow-xl'
+				>
+					Start
+				</motion.button>
+			) : (
+				<motion.button
+					whileTap={{
+						scale: 0.9,
+					}}
+					onClick={handleClickNext}
+					className={`${
+						gameOver ? 'animate-pulse' : ''
+					} border-2 border-neutral-950 shadow-lg mx-auto w-28 h-14 rounded hover:cursor-pointer hover:shadow-xl`}
+					disabled={isLoadingNext || !isAnyClicked}
+				>
+					{gameOver ? 'Play again' : isLoadingNext ? 'Loading' : 'Next'}
+				</motion.button>
+			)}
+
+			{gameStarted && (
+				<>
+					<p className='p-3 text-center'>
+						You have <span className='font-bold'>{score}</span>{' '}
+						{score === 1 ? 'point' : 'points'}
+					</p>
+
+					<p className='p-3 text-center'>
+						<span className='font-bold'>{time}</span>{' '}
+						{time === 1 ? 'second' : 'seconds'} remaining
+					</p>
+				</>
+			)}
+			{gameOver && (
+				<>
+					<p className='p-3 text-center'>Time is up.</p>
+
+					<p className='p-3 text-center'>
+						{' '}
+						You scored {score} {score === 1 ? 'point' : 'points'}
+					</p>
+				</>
+			)}
 		</div>
 	);
 };

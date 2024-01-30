@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import { useState } from 'react';
 
 /* eslint-disable react/prop-types */
@@ -9,38 +10,53 @@ const PokemonCard = ({
 	setIsAnyClicked,
 	score,
 	setScore,
-	setGameOver = { setGameOver },
+	gameOver,
+	gameStarted,
+	index,
 }) => {
 	const [isClicked, setIsClicked] = useState(false);
 
 	const handleClick = () => {
-		if (!isAnyClicked) {
+		if (!isAnyClicked && gameStarted) {
 			setIsClicked(true);
 			setIsAnyClicked(true);
 			if (isCorrect) {
 				setScore(score + 1);
-			} else {
-				setGameOver(true);
 			}
 		}
 	};
 
+	const delay = index * 0.1;
+
 	return (
-		<div
+		<motion.div
+			initial={{ scale: 0 }}
+			animate={{ scale: 1 }}
+			transition={{
+				type: 'tween',
+				stiffness: 260,
+				damping: 20,
+				delay: delay,
+			}}
+			whileTap={{
+				scale: 0.9,
+			}}
 			onClick={handleClick}
-			className={`relative border-4 ${
+			className={`relative border-2 ${
 				isClicked
 					? isCorrect
-						? 'border-green-400'
-						: 'border-red-400'
-					: 'border-pink-300'
-			} rounded w-24 h-24 hover:cursor-pointer shadow-lg hover:shadow-xl`}
+						? 'border-green-500'
+						: 'border-red-500'
+					: 'border-neutral-950'
+			} rounded w-28 h-28 hover:cursor-pointer shadow-lg hover:shadow-xl ${
+				!isAnyClicked && !gameOver && gameStarted ? 'border-neutral-950' : ''
+			}`}
 		>
 			<img src={url} alt={name} className='w-full h-full' />
 			<div className='absolute bottom-0 right-1 text-sm'>
-				{isClicked ? (isCorrect ? 'Yes!' : 'No!!') : ''}
+				{isClicked ? (isCorrect ? 'Yes!' : 'No!') : ''}
 			</div>
-		</div>
+		</motion.div>
 	);
 };
 
