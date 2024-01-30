@@ -27,3 +27,14 @@ export const fetchPokemon = async () => {
 	);
 	return responses.map((response) => response.data);
 };
+
+const prodApi = 'https://pokeserver-nt3v.onrender.com/scores';
+// const devApi = 'http://localhost:3000/scores'
+
+export const fetchScores = async () => {
+	const response = await fetch(prodApi);
+	if (!response.ok) {
+		throw new Error('Failed to fetch scores');
+	}
+	return response.json();
+};

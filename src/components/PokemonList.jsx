@@ -1,19 +1,20 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import PokemonCard from './PokemonCard';
 import { useQuery } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { fetchPokemon, getRandomIndex } from '../utils';
 import Question from './Question';
 import { motion } from 'framer-motion';
+import Form from './Form';
 
-const PokemonList = () => {
+const PokemonList = ({ gameStarted, setGameStarted }) => {
 	const [randomIndex, setRandomIndex] = useState(getRandomIndex());
 	const [isAnyClicked, setIsAnyClicked] = useState(false);
 	const [isLoadingNext, setIsLoadingNext] = useState(false);
 	const [score, setScore] = useState(0);
 	const [gameOver, setGameOver] = useState(false);
 	const [time, setTime] = useState(60);
-	const [gameStarted, setGameStarted] = useState(false);
 
 	const { data, isLoading, isError, refetch } = useQuery({
 		queryKey: ['pokemon'],
@@ -61,38 +62,42 @@ const PokemonList = () => {
 	};
 
 	if (isLoading) {
-		return <p className='text-center p-3'>Loading...</p>;
+		return <p className='text-center p-3'>...loading...</p>;
 	}
 
 	if (isError) {
-		return <p className='text-center p-3'>Error</p>;
+		return <p className='text-center p-3'>Error fetching Pokemon</p>;
 	}
 
 	return (
 		<div className='flex flex-col gap-3'>
-			<Question
-				correctAnswer={data[randomIndex].name}
-				gameStarted={gameStarted}
-			/>
-			<div className='flex flex-wrap justify-center gap-3'>
-				{data.map((query, index) => (
-					<PokemonCard
-						key={query.id}
-						name={query.name}
-						url={query.sprites.front_default}
-						isCorrect={index === randomIndex}
-						isAnyClicked={isAnyClicked}
-						setIsAnyClicked={setIsAnyClicked}
-						score={score}
-						setScore={setScore}
-						gameOver={gameOver}
-						setGameOver={setGameOver}
-						countDown={countDown}
+			{gameStarted && (
+				<>
+					<Question
+						correctAnswer={data[randomIndex].name}
 						gameStarted={gameStarted}
-						index={index}
 					/>
-				))}
-			</div>
+					<div className='flex flex-wrap justify-center gap-3'>
+						{data.map((query, index) => (
+							<PokemonCard
+								key={query.id}
+								name={query.name}
+								url={query.sprites.front_default}
+								isCorrect={index === randomIndex}
+								isAnyClicked={isAnyClicked}
+								setIsAnyClicked={setIsAnyClicked}
+								score={score}
+								setScore={setScore}
+								gameOver={gameOver}
+								setGameOver={setGameOver}
+								countDown={countDown}
+								gameStarted={gameStarted}
+								index={index}
+							/>
+						))}
+					</div>
+				</>
+			)}
 			{!gameStarted ? (
 				<motion.button
 					whileTap={{
@@ -139,6 +144,7 @@ const PokemonList = () => {
 						{' '}
 						You scored {score} {score === 1 ? 'point' : 'points'}
 					</p>
+					<Form score={score} />
 				</>
 			)}
 		</div>
