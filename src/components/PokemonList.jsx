@@ -94,7 +94,7 @@ const PokemonList = ({ gameStarted, setGameStarted }) => {
 						scale: 0.9,
 					}}
 					onClick={handleClickStart}
-					className='animate-pulse border-2 border-neutral-950 shadow-lg mx-auto w-28 h-14 rounded hover:cursor-pointer hover:shadow-xl'
+					className='animate-pulse border-2 border-neutral-950 shadow-lg mx-auto w-28 h-14 rounded hover:cursor-pointer hover:shadow-xl m-3'
 				>
 					Start
 				</motion.button>
@@ -108,7 +108,7 @@ const PokemonList = ({ gameStarted, setGameStarted }) => {
 					onClick={handleClickPlayAgain}
 					className={`${
 						isFetching ? '' : 'animate-pulse'
-					} border-2 border-neutral-950 shadow-lg mx-auto w-28 h-14 rounded hover:cursor-pointer hover:shadow-xl`}
+					} border-2 border-neutral-950 shadow-lg mx-auto w-28 h-14 rounded hover:cursor-pointer hover:shadow-xl m-3`}
 					disabled={isFetching}
 				>
 					Play again
