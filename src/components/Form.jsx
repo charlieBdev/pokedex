@@ -33,7 +33,7 @@ const Form = ({ score }) => {
 	return (
 		<>
 			{score > scoreToBeat && !formSubmitted && (
-				<form onSubmit={handleSubmit} className='flex gap-3 justify-center'>
+				<form onSubmit={handleSubmit} className='flex gap-3 justify-center p-3'>
 					<input
 						value={playerName}
 						onChange={(e) => setPlayerName(e.target.value)}
