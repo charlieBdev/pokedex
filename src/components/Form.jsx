@@ -56,7 +56,7 @@ const Form = ({ score }) => {
 							placeholder='Enter your name'
 							className='p-3 rounded shadow-lg focus:outline-none placeholder:text-neutral-400'
 						/>
-						<p className='absolute bottom-1 right-1 italic text-xs text-neutral-400'>
+						<p className='absolute bottom-1 right-1 text-xs text-neutral-400'>
 							{12 - playerName.length < 12 && 12 - playerName.length}
 						</p>
 						<p className='absolute top-1 right-1 text-green-500'>
