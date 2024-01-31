@@ -15,7 +15,7 @@ const Scoreboard = () => {
 
 	if (isError) {
 		refetch();
-		return <p className='text-center p-3'>Error fetching High Scores</p>;
+		return <p className='text-center p-3'>...reloading High Scores...</p>;
 	}
 
 	return (
