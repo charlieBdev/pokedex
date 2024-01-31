@@ -8,7 +8,7 @@ const Footer = () => {
 				rel='noreferrer'
 			>
 				charliebdev
-			</a>
+			</a>{' '}with 🙏 to PokeAPI
 		</p>
 	);
 };
