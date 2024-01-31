@@ -50,7 +50,7 @@ const PokemonList = ({ gameStarted, setGameStarted }) => {
 
 	if (isError) {
 		refetch();
-		return <p className='text-center p-3'>Error fetching Pokemon</p>;
+		return <p className='text-center p-3'>...reloading Pokemon...</p>;
 	}
 
 	return (
