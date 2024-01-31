@@ -45,7 +45,7 @@ const PokemonList = ({ gameStarted, setGameStarted }) => {
 	};
 
 	if (isLoading) {
-		return <p className='text-center p-3'>...loading Pokemon...</p>;
+		return <p className='text-center p-3'>Which Pokemon is ... ?</p>;
 	}
 
 	if (isError) {
