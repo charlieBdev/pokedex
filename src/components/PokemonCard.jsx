@@ -15,6 +15,7 @@ const PokemonCard = ({
 	index,
 	endGame,
 	getPokemon,
+	setIsWrong,
 }) => {
 	const [isClicked, setIsClicked] = useState(false);
 
@@ -30,6 +31,7 @@ const PokemonCard = ({
 			if (isCorrect) {
 				setScore(score + 1);
 			} else {
+				setIsWrong(true);
 				setTimeout(() => {
 					endGame();
 				}, 1000);

@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import PokemonCard from './PokemonCard';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import { fetchPokemon, getRandomIndex } from '../utils';
 import Question from './Question';
@@ -9,35 +9,28 @@ import { motion } from 'framer-motion';
 import Form from './Form';
 
 const PokemonList = ({ gameStarted, setGameStarted }) => {
-	const queryClient = useQueryClient();
 	const [randomIndex, setRandomIndex] = useState(getRandomIndex());
 	const [isAnyClicked, setIsAnyClicked] = useState(false);
 	const [score, setScore] = useState(0);
 	const [gameOver, setGameOver] = useState(false);
+	const [isWrong, setIsWrong] = useState(false);
 
-	console.log(gameStarted, '<<< gameStarted');
-	console.log(gameOver, '<<< gameOver');
-
-	const { data, isLoading, isError, refetch } = useQuery({
+	const { data, isLoading, isError, refetch, isFetching } = useQuery({
 		queryKey: ['pokemon'],
 		queryFn: fetchPokemon,
 		enabled: false,
-		// staleTime: 0,
 	});
 
 	const handleClickStart = () => {
-		// setScore(0);
 		setGameStarted(true);
-		// setGameOver(false);
 		getPokemon();
 	};
 
 	const handleClickPlayAgain = () => {
-		// queryClient.invalidateQueries('pokemon');
 		setScore(0);
 		setGameStarted(true);
 		setGameOver(false);
-		// getPokemon();
+		setIsWrong(false);
 	};
 
 	const getPokemon = async () => {
@@ -47,7 +40,6 @@ const PokemonList = ({ gameStarted, setGameStarted }) => {
 	};
 
 	const endGame = () => {
-		// queryClient.reset('pokemon');
 		setGameOver(true);
 		setGameStarted(false);
 	};
@@ -85,6 +77,7 @@ const PokemonList = ({ gameStarted, setGameStarted }) => {
 								index={index}
 								endGame={endGame}
 								getPokemon={getPokemon}
+								setIsWrong={setIsWrong}
 							/>
 						))}
 					</div>
@@ -99,6 +92,7 @@ const PokemonList = ({ gameStarted, setGameStarted }) => {
 					}}
 					onClick={handleClickStart}
 					className='animate-pulse border-2 border-neutral-950 shadow-lg mx-auto w-28 h-14 rounded hover:cursor-pointer hover:shadow-xl'
+					disabled={isFetching}
 				>
 					Start
 				</motion.button>
@@ -123,16 +117,25 @@ const PokemonList = ({ gameStarted, setGameStarted }) => {
 						You have <span className='font-bold'>{score}</span>{' '}
 						{score === 1 ? 'point' : 'points'}
 					</p>
+					{isFetching && (
+						<p className='p-3 text-center animate-pulse'>...loading...</p>
+					)}
+					{isWrong && (
+						<motion.p
+							initial={{ scale: 0 }}
+							animate={{ scale: 1 }}
+							className='p-3 text-center'
+						>
+							Game over!
+						</motion.p>
+					)}
 				</>
 			)}
 
 			{/* final score and form */}
 			{gameOver && (
 				<>
-					<p className='p-3 text-center'>Game Over!</p>
-
 					<p className='p-3 text-center'>
-						{' '}
 						You scored {score} {score === 1 ? 'point' : 'points'}
 					</p>
 					<Form score={score} />
