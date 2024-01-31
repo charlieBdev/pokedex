@@ -23,7 +23,6 @@ const Form = ({ score }) => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		if (score === 0 || playerName.trim() === '') return;
-		console.log(playerName);
 
 		newScoreMutation.mutate({
 			name: playerName,
