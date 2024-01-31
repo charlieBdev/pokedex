@@ -13,6 +13,11 @@ const Form = ({ score }) => {
 
 	const newScoreMutation = useMutation({
 		mutationFn: postScore,
+		onSuccess: () => {
+			setFormSubmitted(true);
+			setPlayerName('');
+			queryClient.invalidateQueries(['scores']);
+		},
 	});
 
 	const handleSubmit = (e) => {
@@ -24,9 +29,6 @@ const Form = ({ score }) => {
 			name: playerName,
 			score,
 		});
-
-		setFormSubmitted(true);
-		setPlayerName('');
 	};
 
 	return (
@@ -41,7 +43,11 @@ const Form = ({ score }) => {
 					/>
 					<button
 						type='submit'
-						disabled={playerName.trim() === '' || score === 0}
+						disabled={
+							playerName.trim() === '' ||
+							score === 0 ||
+							newScoreMutation.isLoading
+						}
 						className='animate-pulse border-2 border-neutral-950 shadow-lg w-28 h-14 rounded hover:cursor-pointer hover:shadow-xl'
 					>
 						Submit

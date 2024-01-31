@@ -4,7 +4,7 @@ import ScoreboardCard from './ScoreboardCard';
 import { fetchScores } from '../utils';
 
 const Scoreboard = () => {
-	const { data, isLoading, isError } = useQuery({
+	const { data, isLoading, isError, refetch } = useQuery({
 		queryKey: ['scores'],
 		queryFn: fetchScores,
 	});
@@ -14,6 +14,7 @@ const Scoreboard = () => {
 	}
 
 	if (isError) {
+		refetch();
 		return <p className='text-center p-3'>Error fetching High Scores</p>;
 	}
 
