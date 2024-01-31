@@ -19,7 +19,7 @@ const Scoreboard = () => {
 	}
 
 	return (
-		<div className='p-3'>
+		<div>
 			<h3 className='underline text-center p-3'>High Scores</h3>
 			{data.length === 0 && (
 				<p className=' text-center p-3'>Be the first to post a score!</p>
