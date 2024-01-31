@@ -13,15 +13,26 @@ const PokemonCard = ({
 	gameOver,
 	gameStarted,
 	index,
+	endGame,
+	getPokemon,
 }) => {
 	const [isClicked, setIsClicked] = useState(false);
 
-	const handleClick = () => {
+	const handleGuess = () => {
 		if (!isAnyClicked && gameStarted) {
 			setIsClicked(true);
 			setIsAnyClicked(true);
+
+			setTimeout(() => {
+				getPokemon();
+			}, 1000);
+
 			if (isCorrect) {
 				setScore(score + 1);
+			} else {
+				setTimeout(() => {
+					endGame();
+				}, 1000);
 			}
 		}
 	};
@@ -41,7 +52,7 @@ const PokemonCard = ({
 			whileTap={{
 				scale: 0.9,
 			}}
-			onClick={handleClick}
+			onClick={handleGuess}
 			className={`relative border-2 ${
 				isClicked
 					? isCorrect
