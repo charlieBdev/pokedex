@@ -32,9 +32,29 @@ const prodApi = 'https://pokeserver-nt3v.onrender.com/scores';
 // const devApi = 'http://localhost:3000/scores'
 
 export const fetchScores = async () => {
-	const response = await fetch(prodApi);
-	if (!response.ok) {
-		throw new Error('Failed to fetch scores');
+	try {
+		const response = await axios.get(prodApi);
+		return response.data;
+	} catch (e) {
+		console.error('Failed to fetch scores:', e.message);
+		throw e;
 	}
-	return response.json();
+};
+
+export const postScore = async (formData) => {
+	try {
+		const response = await axios.post(prodApi, formData);
+		return response.data;
+	} catch (e) {
+		console.error('Failed to post score:', e.message);
+		throw e;
+	}
+};
+
+export const getScoreToBeat = (scores) => {
+	if (scores.length === 0 || scores.length < 10) {
+		return 0;
+	} else {
+		return scores[9].score;
+	}
 };

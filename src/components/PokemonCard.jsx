@@ -3,14 +3,15 @@ import { useState } from 'react';
 
 /* eslint-disable react/prop-types */
 const PokemonCard = ({
-	name,
+	// name,
+	ability,
+	move,
 	url,
 	isCorrect,
 	isAnyClicked,
 	setIsAnyClicked,
 	score,
 	setScore,
-	gameOver,
 	gameStarted,
 	index,
 	endGame,
@@ -55,20 +56,20 @@ const PokemonCard = ({
 				scale: 0.9,
 			}}
 			onClick={handleGuess}
-			className={`relative border-2 ${
-				isClicked
-					? isCorrect
-						? 'border-green-500'
-						: 'border-red-500'
-					: 'border-neutral-950'
-			} rounded w-28 h-28 hover:cursor-pointer shadow-lg hover:shadow-xl ${
-				!isAnyClicked && !gameOver && gameStarted ? 'border-neutral-950' : ''
+			className={`relative border-2 rounded w-28 h-28 shadow-lg hover:cursor-pointer hover:shadow-xl ${
+				!isClicked
+					? 'border-neutral-950'
+					: isCorrect
+					? 'border-green-500'
+					: 'border-red-500'
 			}`}
 		>
-			<img src={url} alt={name} className='w-full h-full' />
-			<div className='absolute bottom-0 right-1 text-sm'>
-				{isClicked ? (isCorrect ? 'Yes!' : 'No!') : ''}
+			<img src={url} alt={`Pokemon ${index + 1}`} className='w-full h-full' />
+			<div className='absolute bottom-1 right-1 text-sm'>
+				{isClicked ? (isCorrect ? '🥳' : '🤬') : ''}
 			</div>
+			<div className='absolute top-1 left-1 text-xs'>{ability}</div>
+			<div className='absolute bottom-1 left-1 text-xs'>{move}</div>
 		</motion.div>
 	);
 };

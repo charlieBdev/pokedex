@@ -19,7 +19,10 @@ const Scoreboard = () => {
 
 	return (
 		<div className='p-3'>
-			<h3 className='underline text-center'>High Scores</h3>
+			<h3 className='underline text-center p-3'>High Scores</h3>
+			{data.length === 0 && (
+				<p className=' text-center p-3'>Be the first to post a score!</p>
+			)}
 			<ul>
 				{data.map((score, index) => (
 					<ScoreboardCard

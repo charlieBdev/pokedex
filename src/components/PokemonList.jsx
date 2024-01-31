@@ -66,6 +66,8 @@ const PokemonList = ({ gameStarted, setGameStarted }) => {
 							<PokemonCard
 								key={query.id}
 								name={query.name}
+								ability={query.abilities[0].ability.name}
+								move={query.moves[0].move.name}
 								url={query.sprites.front_default}
 								isCorrect={index === randomIndex}
 								isAnyClicked={isAnyClicked}
@@ -92,7 +94,6 @@ const PokemonList = ({ gameStarted, setGameStarted }) => {
 					}}
 					onClick={handleClickStart}
 					className='animate-pulse border-2 border-neutral-950 shadow-lg mx-auto w-28 h-14 rounded hover:cursor-pointer hover:shadow-xl'
-					disabled={isFetching}
 				>
 					Start
 				</motion.button>
@@ -104,7 +105,10 @@ const PokemonList = ({ gameStarted, setGameStarted }) => {
 						scale: 0.9,
 					}}
 					onClick={handleClickPlayAgain}
-					className='animate-pulse border-2 border-neutral-950 shadow-lg mx-auto w-28 h-14 rounded hover:cursor-pointer hover:shadow-xl'
+					className={`${
+						isFetching ? '' : 'animate-pulse'
+					} border-2 border-neutral-950 shadow-lg mx-auto w-28 h-14 rounded hover:cursor-pointer hover:shadow-xl`}
+					disabled={isFetching}
 				>
 					Play again
 				</motion.button>
@@ -124,7 +128,7 @@ const PokemonList = ({ gameStarted, setGameStarted }) => {
 						<motion.p
 							initial={{ scale: 0 }}
 							animate={{ scale: 1 }}
-							className='p-3 text-center'
+							className='p-3 text-center text-lg font-bold'
 						>
 							Game over!
 						</motion.p>

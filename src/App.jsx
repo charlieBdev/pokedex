@@ -1,4 +1,3 @@
-// import Form from './components/Form';
 import Header from './components/Header';
 import PokemonList from './components/PokemonList';
 import Scoreboard from './components/Scoreboard';
@@ -8,10 +7,15 @@ function App() {
 	const [gameStarted, setGameStarted] = useState(false);
 
 	return (
-		<div className='bg-gradient-to-br from-[#FFDE00] via-[#ffdd00ab] to-[#FFDE00] h-screen font-mono text-neutral-950 flex flex-col gap-3 items-center pt-24'>
-			<Header />
-			<PokemonList gameStarted={gameStarted} setGameStarted={setGameStarted} />
-			{!gameStarted && <Scoreboard />}
+		<div className='bg-gradient-to-br from-[#FFDE00] via-[#ffdd00ab] to-[#FFDE00] h-screen font-mono text-neutral-950 flex flex-col gap-3 items-center justify-between pt-24'>
+			<div>
+				<Header />
+				<PokemonList
+					gameStarted={gameStarted}
+					setGameStarted={setGameStarted}
+				/>
+				{!gameStarted && <Scoreboard />}
+			</div>
 		</div>
 	);
 }
