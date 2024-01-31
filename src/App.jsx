@@ -1,3 +1,4 @@
+import Footer from './components/Footer';
 import Header from './components/Header';
 import PokemonList from './components/PokemonList';
 import Scoreboard from './components/Scoreboard';
@@ -16,6 +17,7 @@ function App() {
 				/>
 				{!gameStarted && <Scoreboard />}
 			</div>
+			<Footer />
 		</div>
 	);
 }
