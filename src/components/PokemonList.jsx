@@ -142,7 +142,8 @@ const PokemonList = ({ gameStarted, setGameStarted }) => {
 			{gameOver && (
 				<>
 					<p className='p-3 text-center'>
-						You scored {score} {score === 1 ? 'point' : 'points'}
+						You scored <span className='font-bold'> {score} </span>{' '}
+						{score === 1 ? 'point' : 'points'}
 					</p>
 					<Form score={score} />
 				</>
