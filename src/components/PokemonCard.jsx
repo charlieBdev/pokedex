@@ -1,5 +1,7 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
+import Tick from './Tick';
+import Cross from './Cross';
 
 /* eslint-disable react/prop-types */
 const PokemonCard = ({
@@ -66,9 +68,9 @@ const PokemonCard = ({
 		>
 			<img src={url} alt={`Pokemon ${index + 1}`} className='w-full h-full' />
 			<div className='absolute bottom-1 right-1 text-sm'>
-				{isClicked ? (isCorrect ? '🥳' : '🤬') : ''}
+				{isClicked ? isCorrect ? <Tick /> : <Cross /> : ''}
 			</div>
-			<div className='absolute top-1 left-1 text-xs'>{ability}</div>
+			<div className='absolute top-1 right-1 text-xs'>{ability}</div>
 			<div className='absolute bottom-1 left-1 text-xs'>{move}</div>
 		</motion.div>
 	);

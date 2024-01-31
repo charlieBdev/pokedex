@@ -107,11 +107,11 @@ const PokemonList = ({ gameStarted, setGameStarted }) => {
 					}}
 					onClick={handleClickPlayAgain}
 					className={`${
-						isFetching ? '' : 'animate-pulse'
+						isFetching ? 'animate-pulse' : ''
 					} border-2 border-neutral-950 shadow-lg mx-auto w-28 h-14 rounded hover:cursor-pointer hover:shadow-xl m-3`}
 					disabled={isFetching}
 				>
-					Play again
+					{isFetching ? 'loading' : 'Play again'}
 				</motion.button>
 			)}
 
@@ -119,7 +119,8 @@ const PokemonList = ({ gameStarted, setGameStarted }) => {
 			{gameStarted && (
 				<>
 					<p className='p-3 text-center'>
-						You have <span className='font-bold'>{score}</span>{' '}
+						You have
+						<span className='font-bold'> {score} </span>
 						{score === 1 ? 'point' : 'points'}
 					</p>
 					{isFetching && (
@@ -129,9 +130,9 @@ const PokemonList = ({ gameStarted, setGameStarted }) => {
 						<motion.p
 							initial={{ scale: 0 }}
 							animate={{ scale: 1 }}
-							className='p-3 text-center text-lg font-bold'
+							className='tracking-wide p-3 text-center text-lg font-bold'
 						>
-							Game over!
+							GAME OVER
 						</motion.p>
 					)}
 				</>

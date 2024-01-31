@@ -1,12 +1,23 @@
+import { motion } from 'framer-motion';
+
 const Pokeball = () => {
 	return (
-		<svg
+		<motion.svg
 			id='Layer_1'
 			data-name='Layer 1'
 			xmlns='http://www.w3.org/2000/svg'
 			viewBox='0 0 910.13 908.95'
 			width='20'
 			height='20'
+			initial={{ y: -200, scale: 0 }}
+			animate={{ y: 0, scale: 1 }}
+			transition={{
+				type: 'spring',
+				stiffness: 260,
+				damping: 20,
+				duration: 1,
+				delay: 1,
+			}}
 		>
 			<defs>
 				<style>{`.cls-1{fill:#010101;}.cls-2{fill:#fff;}.cls-3{fill:#eb2127;}`}</style>
@@ -37,7 +48,7 @@ const Pokeball = () => {
 				d='M793.1,672.52c32.69.37,57.55,26.21,57.15,59.39-.39,31.86-26.4,56.79-59,56.55a57.74,57.74,0,0,1-57.36-58.33C734.31,697.35,760.2,672.15,793.1,672.52Z'
 				transform='translate(-337 -275.94)'
 			/>
-		</svg>
+		</motion.svg>
 	);
 };
 
