@@ -1,7 +1,13 @@
+import Pokeball from './Pokeball';
+
 const Header = () => {
 	return (
-		<div>
-			<h1 className='p-3 text-center text-3xl font-bold'>Pokemon Quiz</h1>
+		<div className='flex items-center'>
+			<Pokeball />
+			<h1 className='tracking-wide p-3 text-center text-3xl font-bold'>
+				Pokemon Quiz
+			</h1>
+			<Pokeball />
 		</div>
 	);
 };

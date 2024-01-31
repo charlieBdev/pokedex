@@ -2,12 +2,20 @@
 import { useState } from 'react';
 
 const Form = ({ score }) => {
+	const [playerName, setPlayerName] = useState('');
+	const [form, setForm] = useState({
+		name: '',
+		score: 0,
+	});
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		console.log(playerName);
-		console.log(score);
+		setForm({
+			name: playerName,
+			score,
+		});
+		console.log(form.score);
 	};
-	const [playerName, setPlayerName] = useState('');
 
 	return (
 		<form onSubmit={handleSubmit} className='flex p-3 gap-3 justify-center'>
@@ -15,7 +23,7 @@ const Form = ({ score }) => {
 				value={playerName}
 				onChange={(e) => setPlayerName(e.target.value)}
 				placeholder='Enter your name'
-				className='p-3 rounded'
+				className='p-3 rounded shadow-lg focus:outline-none'
 			/>
 			<button
 				type='submit'

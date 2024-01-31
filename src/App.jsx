@@ -11,7 +11,6 @@ function App() {
 		<div className='bg-gradient-to-br from-[#FFDE00] via-[#ffdd00ab] to-[#FFDE00] h-screen font-mono text-neutral-950 flex flex-col gap-3 items-center pt-24'>
 			<Header />
 			<PokemonList gameStarted={gameStarted} setGameStarted={setGameStarted} />
-			{/* <Form score={9999} /> */}
 			{!gameStarted && <Scoreboard />}
 		</div>
 	);

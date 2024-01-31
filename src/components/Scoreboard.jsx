@@ -10,20 +10,21 @@ const Scoreboard = () => {
 	});
 
 	if (isLoading) {
-		return null;
+		return <p className='text-center p-3'>...loading High Scores...</p>;
 	}
 
 	if (isError) {
-		return <p className='text-center p-3'>Error fetching Pokemon</p>;
+		return <p className='text-center p-3'>Error fetching High Scores</p>;
 	}
 
 	return (
 		<div className='p-3'>
 			<h3 className='underline text-center'>High Scores</h3>
 			<ul>
-				{data.map((score) => (
+				{data.map((score, index) => (
 					<ScoreboardCard
 						key={score.id}
+						index={index}
 						name={score.playername}
 						score={score.score}
 					/>
