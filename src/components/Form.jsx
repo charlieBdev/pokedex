@@ -44,10 +44,9 @@ const Form = ({ score }) => {
 						type='submit'
 						disabled={
 							playerName.trim() === '' ||
-							score === 0 ||
 							newScoreMutation.isLoading
 						}
-						className='animate-pulse border-2 border-neutral-950 shadow-lg w-28 h-14 rounded hover:cursor-pointer hover:shadow-xl'
+						className={`${playerName.trim() === '' || newScoreMutation.isLoading ? 'animate-pulse' : ''} border-2 border-neutral-950 shadow-lg w-28 h-14 rounded hover:cursor-pointer hover:shadow-xl`}
 					>
 						Submit
 					</button>
