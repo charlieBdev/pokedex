@@ -60,8 +60,8 @@ const PokemonCard = ({
 				!isClicked
 					? 'border-neutral-950'
 					: isCorrect
-					? 'border-green-500'
-					: 'border-red-500'
+					? 'border-green-500 border-4'
+					: 'border-red-500 border-4'
 			}`}
 		>
 			<img src={url} alt={`Pokemon ${index + 1}`} className='w-full h-full' />
