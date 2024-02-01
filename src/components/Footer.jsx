@@ -6,9 +6,11 @@ const Footer = () => {
 				href='https://charliebdev.vercel.app/'
 				target='_blank'
 				rel='noreferrer'
+				className='underline'
 			>
 				charlieb
-			</a>{' '}with 🙏 to PokeAPI
+			</a>{' '}
+			with 🙏 to PokeAPI
 		</footer>
 	);
 };

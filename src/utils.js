@@ -515,3 +515,15 @@ export const badWords = [
 export const hasSwears = (swearList, string) => {
 	return swearList.some((word) => string.toLowerCase().includes(word));
 };
+
+export const getPlaceSuffix = (place) => {
+	if (place === 1) {
+		return 'st';
+	} else if (place === 2) {
+		return 'nd';
+	} else if (place === 3) {
+		return 'rd';
+	} else {
+		return 'th';
+	}
+};

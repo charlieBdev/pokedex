@@ -8,11 +8,15 @@ import Question from './Question';
 import { motion } from 'framer-motion';
 import Form from './Form';
 
-const PokemonList = ({ gameStarted, setGameStarted }) => {
+const PokemonList = ({
+	gameStarted,
+	setGameStarted,
+	gameOver,
+	setGameOver,
+}) => {
 	const [randomIndex, setRandomIndex] = useState(getRandomIndex());
 	const [isAnyClicked, setIsAnyClicked] = useState(false);
 	const [score, setScore] = useState(0);
-	const [gameOver, setGameOver] = useState(false);
 	const [isWrong, setIsWrong] = useState(false);
 
 	const { data, isLoading, isError, refetch, isFetching } = useQuery({
@@ -45,12 +49,16 @@ const PokemonList = ({ gameStarted, setGameStarted }) => {
 	};
 
 	if (isLoading) {
-		return <p className='text-center p-3'>...loading Pokemon...</p>;
+		return (
+			<p className='text-center p-3 animate-pulse'>...loading Pokemon...</p>
+		);
 	}
 
 	if (isError) {
 		refetch();
-		return <p className='text-center p-3'>...reloading Pokemon...</p>;
+		return (
+			<p className='text-center p-3 animate-pulse'>...reloading Pokemon...</p>
+		);
 	}
 
 	return (
@@ -118,11 +126,13 @@ const PokemonList = ({ gameStarted, setGameStarted }) => {
 			{/* live score */}
 			{gameStarted && (
 				<>
-					<p className='p-3 text-center'>
-						You have
-						<span className='font-bold'> {score} </span>
-						{score === 1 ? 'point' : 'points'}
-					</p>
+					{!isFetching && !isWrong && (
+						<p className='p-3 text-center'>
+							You have
+							<span className='font-bold'> {score} </span>
+							{score === 1 ? 'point' : 'points'}
+						</p>
+					)}
 					{isFetching && (
 						<p className='p-3 text-center animate-pulse'>...loading...</p>
 					)}

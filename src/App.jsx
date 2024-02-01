@@ -6,14 +6,17 @@ import { useState } from 'react';
 
 function App() {
 	const [gameStarted, setGameStarted] = useState(false);
+	const [gameOver, setGameOver] = useState(false);
 
 	return (
-		<div className='bg-gradient-to-br from-yellow-400 via-yellow-200 to-yellow-400 h-screen font-mono text-neutral-950 flex flex-col gap-3 items-center justify-between pt-24'>
+		<div className='bg-gradient-to-br from-yellow-400 via-yellow-200 to-yellow-400 h-screen font-mono text-neutral-950 flex flex-col gap-3 items-center justify-between pt-20'>
 			<div>
-				<Header />
+				<Header gameStarted={gameStarted} gameOver={gameOver} />
 				<PokemonList
 					gameStarted={gameStarted}
 					setGameStarted={setGameStarted}
+					gameOver={gameOver}
+					setGameOver={setGameOver}
 				/>
 				{!gameStarted && <Scoreboard />}
 			</div>

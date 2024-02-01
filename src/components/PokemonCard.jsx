@@ -66,7 +66,11 @@ const PokemonCard = ({
 					: 'border-red-500 border-4'
 			}`}
 		>
-			<img src={url} alt={`Pokemon ${index + 1}`} className='w-full h-full' />
+			<img
+				src={url}
+				alt={`Pokemon: ${index + 1} Ability 1: ${ability} Move 1: ${move}`}
+				className='w-full h-full'
+			/>
 			<div className='absolute bottom-1 right-1 text-sm'>
 				{isClicked ? isCorrect ? <Tick /> : <Cross /> : ''}
 			</div>

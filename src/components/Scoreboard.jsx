@@ -10,17 +10,23 @@ const Scoreboard = () => {
 	});
 
 	if (isLoading) {
-		return <p className='text-center p-3'>...loading High Scores...</p>;
+		return (
+			<p className='text-center p-3 animate-pulse'>...loading High Scores...</p>
+		);
 	}
 
 	if (isError) {
 		refetch();
-		return <p className='text-center p-3'>...reloading High Scores...</p>;
+		return (
+			<p className='text-center p-3 animate-pulse'>
+				...reloading High Scores...
+			</p>
+		);
 	}
 
 	return (
 		<div>
-			<h3 className='underline text-center p-3'>High Scores</h3>
+			<h3 className='underline text-center p-3'>Top 10 Scores</h3>
 			{data.length === 0 && (
 				<p className=' text-center p-3'>Be the first to post a score!</p>
 			)}
