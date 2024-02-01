@@ -32,7 +32,7 @@ function App() {
 	});
 
 	return (
-		<div className='bg-gradient-to-br from-yellow-400 via-yellow-200 to-yellow-400 h-screen font-mono text-neutral-950 flex flex-col gap-3 items-center justify-between pt-20'>
+		<div className='bg-gradient-to-br from-yellow-400 via-yellow-200 to-yellow-400 min-h-screen font-mono text-neutral-950 flex flex-col gap-3 items-center justify-between pt-20'>
 			<div className='flex flex-col'>
 				<Header gameStarted={gameStarted} gameOver={gameOver} />
 
