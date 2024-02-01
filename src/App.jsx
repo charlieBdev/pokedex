@@ -20,7 +20,7 @@ function App() {
 				/>
 				{!gameStarted && <Scoreboard />}
 			</div>
-			<Footer />
+			{!gameStarted && !gameOver && <Footer />}
 		</div>
 	);
 }
