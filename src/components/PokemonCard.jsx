@@ -69,13 +69,13 @@ const PokemonCard = ({
 			<img
 				src={url}
 				alt={`Pokemon: ${index + 1} Ability 1: ${ability} Move 1: ${move}`}
-				className='w-full h-full'
+				className='w-full h-full p-3'
 			/>
 			<div className='absolute bottom-1 right-1 text-sm'>
 				{isClicked ? isCorrect ? <Tick /> : <Cross /> : ''}
 			</div>
-			<div className='absolute top-1 right-1 text-xs'>{ability}</div>
-			<div className='absolute bottom-1 left-1 text-xs'>{move}</div>
+			<div className='absolute top-0 right-1 text-xs'>{ability}</div>
+			<div className='absolute bottom-0 left-1 text-xs'>{move}</div>
 		</motion.div>
 	);
 };
