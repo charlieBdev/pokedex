@@ -46,7 +46,9 @@ const Form = ({ score, data, isLoading, isError, refetch }) => {
 	}
 
 	const topScore = data[0].score;
+	console.log(topScore, '<<< topScore');
 	const scoreToBeat = getScoreToBeat(data);
+	console.log(scoreToBeat, '<<< scoreToBeat');
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -72,7 +74,7 @@ const Form = ({ score, data, isLoading, isError, refetch }) => {
 
 	return (
 		<>
-			{score > scoreToBeat && !formSubmitted ? (
+			{score > scoreToBeat && !formSubmitted && (
 				<form
 					onSubmit={handleSubmit}
 					className='flex gap-3 justify-center pb-3'
@@ -111,7 +113,8 @@ const Form = ({ score, data, isLoading, isError, refetch }) => {
 						Submit
 					</button>
 				</form>
-			) : (
+			)}
+			{score < scoreToBeat && !formSubmitted && (
 				<p className='p-3 text-center'>
 					You need <span className='font-semibold'>{howManyMorePoints}</span>{' '}
 					more {howManyMorePoints === 1 ? 'point' : 'points'} to enter the
