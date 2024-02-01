@@ -45,7 +45,7 @@ const PokemonList = ({ gameStarted, setGameStarted }) => {
 	};
 
 	if (isLoading) {
-		return <p className='text-center p-3'>Which Pokemon is ... ?</p>;
+		return <p className='text-center p-3'>...loading Pokemon...</p>;
 	}
 
 	if (isError) {
@@ -111,7 +111,7 @@ const PokemonList = ({ gameStarted, setGameStarted }) => {
 					} border-2 border-neutral-950 shadow-lg mx-auto w-28 h-14 rounded hover:cursor-pointer hover:shadow-xl m-3`}
 					disabled={isFetching}
 				>
-					{isFetching ? 'loading' : 'Play again'}
+					{isFetching ? 'loading' : 'Restart'}
 				</motion.button>
 			)}
 
