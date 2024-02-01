@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import { useState } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import { getPokemon } from '../utils';
-import Form from './Form';
 import PokemonCard from './PokemonCard';
 import Question from './Question';
 
@@ -21,20 +21,16 @@ const PokemonList = ({
 	isError,
 	refetchFunc,
 	isFetching,
+	score,
+	setScore,
 }) => {
-	const [score, setScore] = useState(0);
 	const [isWrong, setIsWrong] = useState(false);
-
-	const handleClickPlayAgain = () => {
-		setScore(0);
-		setGameStarted(true);
-		setGameOver(false);
-		setIsWrong(false);
-	};
+	const queryClient = useQueryClient();
 
 	const endGame = () => {
 		setGameOver(true);
 		setGameStarted(false);
+		queryClient.resetQueries(['pokemon']);
 	};
 
 	if (isLoading) {
@@ -53,54 +49,31 @@ const PokemonList = ({
 	return (
 		<div className='flex flex-col gap-3'>
 			{/* question and cards to choose - STAY */}
-			{gameStarted && (
-				<>
-					<Question
-						correctAnswer={data[randomIndex].name}
-						gameStarted={gameStarted}
+			<Question
+				correctAnswer={data[randomIndex].name}
+				gameStarted={gameStarted}
+			/>
+			<div className='flex flex-wrap justify-center gap-3'>
+				{data.map((query, index) => (
+					<PokemonCard
+						key={query.id}
+						ability={query.abilities[0].ability.name}
+						move={query.moves[0].move.name}
+						url={query.sprites.front_default}
+						isCorrect={index === randomIndex}
+						refetchFunc={refetchFunc}
+						setRandomIndex={setRandomIndex}
+						setIsAnyClicked={setIsAnyClicked}
+						isAnyClicked={isAnyClicked}
+						score={score}
+						setScore={setScore}
+						index={index}
+						endGame={endGame}
+						getPokemon={getPokemon}
+						setIsWrong={setIsWrong}
 					/>
-					<div className='flex flex-wrap justify-center gap-3'>
-						{data.map((query, index) => (
-							<PokemonCard
-								key={query.id}
-								name={query.name}
-								ability={query.abilities[0].ability.name}
-								move={query.moves[0].move.name}
-								url={query.sprites.front_default}
-								isCorrect={index === randomIndex}
-								refetchFunc={refetchFunc}
-								setRandomIndex={setRandomIndex}
-								setIsAnyClicked={setIsAnyClicked}
-								isAnyClicked={isAnyClicked}
-								score={score}
-								setScore={setScore}
-								gameOver={gameOver}
-								gameStarted={gameStarted}
-								index={index}
-								endGame={endGame}
-								getPokemon={getPokemon}
-								setIsWrong={setIsWrong}
-							/>
-						))}
-					</div>
-				</>
-			)}
-
-			{/* restart button - MOVE */}
-			{gameOver && (
-				<motion.button
-					whileTap={{
-						scale: 0.9,
-					}}
-					onClick={handleClickPlayAgain}
-					className={`${
-						isFetching ? 'animate-pulse' : ''
-					} border-2 border-neutral-950 shadow-lg mx-auto w-28 h-14 rounded hover:cursor-pointer hover:shadow-xl m-3`}
-					disabled={isFetching}
-				>
-					{isFetching ? 'loading' : 'Restart'}
-				</motion.button>
-			)}
+				))}
+			</div>
 
 			{/* live score - STAY */}
 			{gameStarted && (
@@ -108,7 +81,7 @@ const PokemonList = ({
 					{!isFetching && !isWrong && (
 						<p className='p-3 text-center'>
 							You have
-							<span className='font-bold'> {score} </span>
+							<span className='font-semibold'> {score} </span>
 							{score === 1 ? 'point' : 'points'}
 						</p>
 					)}
@@ -119,22 +92,11 @@ const PokemonList = ({
 						<motion.p
 							initial={{ scale: 0 }}
 							animate={{ scale: 1 }}
-							className='tracking-wide p-3 text-center text-lg font-bold'
+							className='tracking-wide p-3 text-center text-xl font-semibold'
 						>
 							GAME OVER
 						</motion.p>
 					)}
-				</>
-			)}
-
-			{/* final score and form - NEEDS MOVING */}
-			{gameOver && (
-				<>
-					<p className='p-3 text-center'>
-						You scored <span className='font-bold'> {score} </span>{' '}
-						{score === 1 ? 'point' : 'points'}
-					</p>
-					<Form score={score} />
 				</>
 			)}
 		</div>

@@ -10,7 +10,7 @@ const ScoreboardCard = ({ index, name, score }) => {
 			</p>
 			<p className='w-28'>{changeUsernames(name)}</p>
 			<p className='w-28'>
-				{score} {score == 1 ? 'pt' : 'pts'}
+				{score} <sub>{score == 1 ? 'pt' : 'pts'}</sub>
 			</p>
 		</div>
 	);

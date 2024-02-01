@@ -1,18 +1,11 @@
 /* eslint-disable react/prop-types */
-import { useQuery } from '@tanstack/react-query';
 import ScoreboardCard from './ScoreboardCard';
-import { fetchScores } from '../utils';
 
-const Scoreboard = () => {
-	const { data, isLoading, isError, refetch } = useQuery({
-		queryKey: ['scores'],
-		queryFn: fetchScores,
-	});
-
+const Scoreboard = ({ data, isLoading, isError, refetch }) => {
 	if (isLoading) {
 		return (
 			<p className='text-center p-3 animate-pulse'>
-				...loading Pokehall of Fame...
+				...loading Pokéhall of Fame...
 			</p>
 		);
 	}
@@ -21,7 +14,7 @@ const Scoreboard = () => {
 		refetch();
 		return (
 			<p className='text-center p-3 animate-pulse'>
-				...reloading Pokehall of Fame...
+				...reloading Pokéhall of Fame...
 			</p>
 		);
 	}

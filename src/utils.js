@@ -529,11 +529,13 @@ export const getPlaceSuffix = (place) => {
 };
 
 export const handleClickStart = (
+	setGameOver,
 	setGameStarted,
 	fetchFunc,
 	setRandomIndex,
 	setIsAnyClicked
 ) => {
+	setGameOver(false);
 	setGameStarted(true);
 	getPokemon(fetchFunc, setRandomIndex, setIsAnyClicked);
 };
@@ -549,5 +551,5 @@ export const getPokemon = async (
 };
 
 export const changeUsernames = (name) => {
-	return name.replace('e', 'é');
+	return name.replaceAll('e', 'é');
 };

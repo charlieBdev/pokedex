@@ -2,10 +2,10 @@ import { motion } from 'framer-motion';
 import { useState } from 'react';
 import Tick from './Tick';
 import Cross from './Cross';
+import confetti from 'canvas-confetti';
 
 /* eslint-disable react/prop-types */
 const PokemonCard = ({
-	// name,
 	ability,
 	move,
 	url,
@@ -16,7 +16,6 @@ const PokemonCard = ({
 	isAnyClicked,
 	score,
 	setScore,
-	gameStarted,
 	index,
 	endGame,
 	getPokemon,
@@ -25,15 +24,14 @@ const PokemonCard = ({
 	const [isClicked, setIsClicked] = useState(false);
 
 	const handleGuess = () => {
-		if (!isAnyClicked && gameStarted) {
+		if (!isAnyClicked) {
 			setIsClicked(true);
 			setIsAnyClicked(true);
-
-			setTimeout(() => {
-				getPokemon(refetchFunc, setRandomIndex, setIsAnyClicked);
-			}, 1000);
-
 			if (isCorrect) {
+				confetti();
+				setTimeout(() => {
+					getPokemon(refetchFunc, setRandomIndex, setIsAnyClicked);
+				}, 1000);
 				setScore(score + 1);
 			} else {
 				setIsWrong(true);

@@ -2,25 +2,51 @@
 import { useState } from 'react';
 import { badWords, getScoreToBeat, hasSwears, postScore } from '../utils';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import confetti from 'canvas-confetti';
 import Tick from './Tick';
 import Cross from './Cross';
 
-const Form = ({ score }) => {
-	const queryClient = useQueryClient();
-	const scoresData = queryClient.getQueryData(['scores']);
-	const scoreToBeat = getScoreToBeat(scoresData);
-
+const Form = ({ score, data, isLoading, isError, refetch }) => {
 	const [playerName, setPlayerName] = useState('');
 	const [formSubmitted, setFormSubmitted] = useState(false);
+	const queryClient = useQueryClient();
 
 	const newScoreMutation = useMutation({
 		mutationFn: postScore,
 		onSuccess: () => {
 			setFormSubmitted(true);
 			setPlayerName('');
+			if (score > topScore) {
+				var scalar = 2;
+				var gold = confetti.shapeFromText({ text: '', scalar });
+				confetti({
+					shapes: [gold],
+					scalar,
+				});
+			} else {
+				confetti();
+			}
 			queryClient.invalidateQueries(['scores']);
 		},
 	});
+
+	if (isLoading) {
+		// return (
+		// 	<p className='text-center p-3 animate-pulse'>...loading Pokéform...</p>
+		// );
+		return null;
+	}
+
+	if (isError) {
+		refetch();
+		// return (
+		// 	<p className='text-center p-3 animate-pulse'>...reloading Pokéform...</p>
+		// );
+		return null;
+	}
+
+	const topScore = data[0].score;
+	const scoreToBeat = getScoreToBeat(data);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -42,9 +68,11 @@ const Form = ({ score }) => {
 		return isValid;
 	};
 
+	const howManyMorePoints = scoreToBeat - score + 1;
+
 	return (
 		<>
-			{score > scoreToBeat && !formSubmitted && (
+			{score > scoreToBeat && !formSubmitted ? (
 				<form
 					onSubmit={handleSubmit}
 					className='flex gap-3 justify-center pb-3'
@@ -71,12 +99,10 @@ const Form = ({ score }) => {
 					</div>
 					<button
 						type='submit'
-						// disabled={playerName.trim() === '' || newScoreMutation.isLoading}
 						disabled={
 							!validInput(score, playerName) || newScoreMutation.isLoading
 						}
 						className={`${
-							// playerName.trim() === '' || newScoreMutation.isLoading
 							!validInput(score, playerName) || newScoreMutation.isLoading
 								? 'animate-pulse'
 								: ''
@@ -85,6 +111,12 @@ const Form = ({ score }) => {
 						Submit
 					</button>
 				</form>
+			) : (
+				<p className='p-3 text-center'>
+					You need <span className='font-semibold'>{howManyMorePoints}</span>{' '}
+					more {howManyMorePoints === 1 ? 'point' : 'points'} to enter the
+					Pokéhall of Fame
+				</p>
 			)}
 		</>
 	);
