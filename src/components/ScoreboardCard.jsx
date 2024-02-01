@@ -1,4 +1,4 @@
-import { getPlaceSuffix } from '../utils';
+import { changeUsernames, getPlaceSuffix } from '../utils';
 
 /* eslint-disable react/prop-types */
 const ScoreboardCard = ({ index, name, score }) => {
@@ -8,7 +8,7 @@ const ScoreboardCard = ({ index, name, score }) => {
 				{index + 1}
 				<sup>{getPlaceSuffix(index + 1)}</sup>
 			</p>
-			<p className='w-28'>{name}</p>
+			<p className='w-28'>{changeUsernames(name)}</p>
 			<p className='w-28'>
 				{score} {score == 1 ? 'pt' : 'pts'}
 			</p>

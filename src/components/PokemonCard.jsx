@@ -10,8 +10,10 @@ const PokemonCard = ({
 	move,
 	url,
 	isCorrect,
-	isAnyClicked,
+	refetchFunc,
+	setRandomIndex,
 	setIsAnyClicked,
+	isAnyClicked,
 	score,
 	setScore,
 	gameStarted,
@@ -28,7 +30,7 @@ const PokemonCard = ({
 			setIsAnyClicked(true);
 
 			setTimeout(() => {
-				getPokemon();
+				getPokemon(refetchFunc, setRandomIndex, setIsAnyClicked);
 			}, 1000);
 
 			if (isCorrect) {
@@ -68,7 +70,7 @@ const PokemonCard = ({
 		>
 			<img
 				src={url}
-				alt={`Pokemon: ${index + 1} Ability 1: ${ability} Move 1: ${move}`}
+				alt={`Pokémon: ${index + 1} Ability 1: ${ability} Move 1: ${move}`}
 				className='w-full h-full p-3'
 			/>
 			<div className='absolute bottom-1 right-1 text-sm'>

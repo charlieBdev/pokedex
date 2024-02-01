@@ -527,3 +527,27 @@ export const getPlaceSuffix = (place) => {
 		return 'th';
 	}
 };
+
+export const handleClickStart = (
+	setGameStarted,
+	fetchFunc,
+	setRandomIndex,
+	setIsAnyClicked
+) => {
+	setGameStarted(true);
+	getPokemon(fetchFunc, setRandomIndex, setIsAnyClicked);
+};
+
+export const getPokemon = async (
+	refetchFunc,
+	setRandomIndex,
+	setIsAnyClicked
+) => {
+	await refetchFunc();
+	setRandomIndex(getRandomIndex());
+	setIsAnyClicked(false);
+};
+
+export const changeUsernames = (name) => {
+	return name.replace('e', 'é');
+};

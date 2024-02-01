@@ -11,7 +11,9 @@ const Scoreboard = () => {
 
 	if (isLoading) {
 		return (
-			<p className='text-center p-3 animate-pulse'>...loading High Scores...</p>
+			<p className='text-center p-3 animate-pulse'>
+				...loading Pokehall of Fame...
+			</p>
 		);
 	}
 
@@ -19,14 +21,14 @@ const Scoreboard = () => {
 		refetch();
 		return (
 			<p className='text-center p-3 animate-pulse'>
-				...reloading High Scores...
+				...reloading Pokehall of Fame...
 			</p>
 		);
 	}
 
 	return (
 		<div>
-			<h3 className='underline text-center p-3'>Top 10 Scores</h3>
+			<h3 className='underline text-center p-3'>Pokéhall of Fame</h3>
 			{data.length === 0 && (
 				<p className=' text-center p-3'>Be the first to post a score!</p>
 			)}

@@ -8,9 +8,9 @@ const Footer = () => {
 				rel='noreferrer'
 				className='underline'
 			>
-				charlieb
+				charliéb
 			</a>{' '}
-			with 🙏 to PokeAPI
+			with 🙏 to PokéAPI
 		</footer>
 	);
 };

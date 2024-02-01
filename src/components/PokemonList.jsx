@@ -1,46 +1,35 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import PokemonCard from './PokemonCard';
-import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
-import { fetchPokemon, getRandomIndex } from '../utils';
-import Question from './Question';
 import { motion } from 'framer-motion';
+import { getPokemon } from '../utils';
 import Form from './Form';
+import PokemonCard from './PokemonCard';
+import Question from './Question';
 
 const PokemonList = ({
 	gameStarted,
 	setGameStarted,
 	gameOver,
 	setGameOver,
+	randomIndex,
+	setRandomIndex,
+	isAnyClicked,
+	setIsAnyClicked,
+	data,
+	isLoading,
+	isError,
+	refetchFunc,
+	isFetching,
 }) => {
-	const [randomIndex, setRandomIndex] = useState(getRandomIndex());
-	const [isAnyClicked, setIsAnyClicked] = useState(false);
 	const [score, setScore] = useState(0);
 	const [isWrong, setIsWrong] = useState(false);
-
-	const { data, isLoading, isError, refetch, isFetching } = useQuery({
-		queryKey: ['pokemon'],
-		queryFn: fetchPokemon,
-		enabled: false,
-	});
-
-	const handleClickStart = () => {
-		setGameStarted(true);
-		getPokemon();
-	};
 
 	const handleClickPlayAgain = () => {
 		setScore(0);
 		setGameStarted(true);
 		setGameOver(false);
 		setIsWrong(false);
-	};
-
-	const getPokemon = async () => {
-		await refetch();
-		setRandomIndex(getRandomIndex());
-		setIsAnyClicked(false);
 	};
 
 	const endGame = () => {
@@ -50,20 +39,20 @@ const PokemonList = ({
 
 	if (isLoading) {
 		return (
-			<p className='text-center p-3 animate-pulse'>...loading Pokemon...</p>
+			<p className='text-center p-3 animate-pulse'>...loading Pokémon...</p>
 		);
 	}
 
 	if (isError) {
-		refetch();
+		refetchFunc();
 		return (
-			<p className='text-center p-3 animate-pulse'>...reloading Pokemon...</p>
+			<p className='text-center p-3 animate-pulse'>...reloading Pokémon...</p>
 		);
 	}
 
 	return (
 		<div className='flex flex-col gap-3'>
-			{/* question and cards to choose */}
+			{/* question and cards to choose - STAY */}
 			{gameStarted && (
 				<>
 					<Question
@@ -79,8 +68,10 @@ const PokemonList = ({
 								move={query.moves[0].move.name}
 								url={query.sprites.front_default}
 								isCorrect={index === randomIndex}
-								isAnyClicked={isAnyClicked}
+								refetchFunc={refetchFunc}
+								setRandomIndex={setRandomIndex}
 								setIsAnyClicked={setIsAnyClicked}
+								isAnyClicked={isAnyClicked}
 								score={score}
 								setScore={setScore}
 								gameOver={gameOver}
@@ -95,19 +86,7 @@ const PokemonList = ({
 				</>
 			)}
 
-			{/* start and play again button */}
-			{!gameStarted && !gameOver && (
-				<motion.button
-					whileTap={{
-						scale: 0.9,
-					}}
-					onClick={handleClickStart}
-					className='animate-pulse border-2 border-neutral-950 shadow-lg mx-auto w-28 h-14 rounded hover:cursor-pointer hover:shadow-xl m-3'
-				>
-					Start
-				</motion.button>
-			)}
-
+			{/* restart button - MOVE */}
 			{gameOver && (
 				<motion.button
 					whileTap={{
@@ -123,7 +102,7 @@ const PokemonList = ({
 				</motion.button>
 			)}
 
-			{/* live score */}
+			{/* live score - STAY */}
 			{gameStarted && (
 				<>
 					{!isFetching && !isWrong && (
@@ -148,7 +127,7 @@ const PokemonList = ({
 				</>
 			)}
 
-			{/* final score and form */}
+			{/* final score and form - NEEDS MOVING */}
 			{gameOver && (
 				<>
 					<p className='p-3 text-center'>

@@ -4,7 +4,7 @@ const Question = ({ correctAnswer, gameStarted }) => {
 	return (
 		<div className='p-3'>
 			<h2 className='text-center'>
-				Which Pokemon is{' '}
+				Which Pokémon is{' '}
 				<span className='font-bold'>{gameStarted ? upperName : '... '}</span>?
 			</h2>
 		</div>
