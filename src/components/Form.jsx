@@ -46,9 +46,7 @@ const Form = ({ score, data, isLoading, isError, refetch }) => {
 	}
 
 	const topScore = data[0].score;
-	console.log(topScore, '<<< topScore');
 	const scoreToBeat = getScoreToBeat(data);
-	console.log(scoreToBeat, '<<< scoreToBeat');
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
