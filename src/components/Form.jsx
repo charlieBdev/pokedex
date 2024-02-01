@@ -112,7 +112,7 @@ const Form = ({ score, data, isLoading, isError, refetch }) => {
 					</button>
 				</form>
 			)}
-			{score < scoreToBeat && !formSubmitted && (
+			{score <= scoreToBeat && !formSubmitted && (
 				<p className='p-3 text-center'>
 					You need <span className='font-semibold'>{howManyMorePoints}</span>{' '}
 					more {howManyMorePoints === 1 ? 'point' : 'points'} to enter the
