@@ -18,7 +18,7 @@ const Form = ({ score, data, isLoading, isError, refetch }) => {
 			setPlayerName('');
 			if (score > topScore) {
 				var scalar = 2;
-				var gold = confetti.shapeFromText({ text: '', scalar });
+				var gold = confetti.shapeFromText({ text: '🥇', scalar });
 				confetti({
 					shapes: [gold],
 					scalar,
