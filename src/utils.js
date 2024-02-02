@@ -20,37 +20,6 @@ export const getRandomIds = () => {
 	return randomIds;
 };
 
-export const fetchPokemon = async () => {
-	const randomIds = getRandomIds();
-	const responses = await Promise.all(
-		randomIds.map((id) => axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`))
-	);
-	return responses.map((response) => response.data);
-};
-
-const prodApi = 'https://pokeserver-nt3v.onrender.com/scores';
-// const devApi = 'http://localhost:3000/scores'
-
-export const fetchScores = async () => {
-	try {
-		const response = await axios.get(prodApi);
-		return response.data;
-	} catch (e) {
-		console.error('Failed to fetch scores:', e.message);
-		throw e;
-	}
-};
-
-export const postScore = async (formData) => {
-	try {
-		const response = await axios.post(prodApi, formData);
-		return response.data;
-	} catch (e) {
-		console.error('Failed to post score:', e.message);
-		throw e;
-	}
-};
-
 export const getScoreToBeat = (scores) => {
 	if (scores.length === 0 || scores.length < 10) {
 		return 0;
@@ -528,6 +497,42 @@ export const getPlaceSuffix = (place) => {
 	}
 };
 
+export const changeUsernames = (name) => {
+	return name.replaceAll('e', 'é');
+};
+
+export const fetchPokemon = async () => {
+	const randomIds = getRandomIds();
+	const responses = await Promise.all(
+		randomIds.map((id) => axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`))
+	);
+	return responses.map((response) => response.data);
+};
+
+const prodApi = 'https://pokeserver-nt3v.onrender.com/scores';
+// const devApi = 'http://localhost:3000/scores'
+
+export const fetchScores = async () => {
+	try {
+		const response = await axios.get(prodApi);
+		return response.data;
+	} catch (e) {
+		console.error('Failed to fetch scores:', e.message);
+		throw e;
+	}
+};
+
+export const postScore = async (formData) => {
+	try {
+		const response = await axios.post(prodApi, formData);
+		return response.data;
+	} catch (e) {
+		console.error('Failed to post score:', e.message);
+		throw e;
+	}
+};
+
+// MOVE
 export const handleClickStart = (
 	setGameOver,
 	setGameStarted,
@@ -540,6 +545,7 @@ export const handleClickStart = (
 	getPokemon(fetchFunc, setRandomIndex, setIsAnyClicked);
 };
 
+// MOVE
 export const getPokemon = async (
 	refetchFunc,
 	setRandomIndex,
@@ -548,8 +554,4 @@ export const getPokemon = async (
 	await refetchFunc();
 	setRandomIndex(getRandomIndex());
 	setIsAnyClicked(false);
-};
-
-export const changeUsernames = (name) => {
-	return name.replaceAll('e', 'é');
 };

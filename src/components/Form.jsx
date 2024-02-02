@@ -3,8 +3,7 @@ import { useState } from 'react';
 import { badWords, getScoreToBeat, hasSwears, postScore } from '../utils';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import confetti from 'canvas-confetti';
-import Tick from './Tick';
-import Cross from './Cross';
+import { Tick, Cross } from '../components';
 
 const Form = ({ score, data, isLoading, isError, refetch }) => {
 	const [playerName, setPlayerName] = useState('');
@@ -79,7 +78,7 @@ const Form = ({ score, data, isLoading, isError, refetch }) => {
 							value={playerName}
 							onChange={(e) => setPlayerName(e.target.value)}
 							placeholder='Enter your name'
-							className='p-3 rounded shadow-lg focus:outline-none placeholder:text-neutral-400'
+							className='w-44 p-3 rounded shadow-lg focus:outline-none placeholder:text-neutral-400'
 						/>
 						<p className='absolute bottom-1 right-1 text-xs text-neutral-400'>
 							{12 - playerName.length < 12 && 12 - playerName.length}
@@ -109,7 +108,7 @@ const Form = ({ score, data, isLoading, isError, refetch }) => {
 					</button>
 				</form>
 			)}
-			{score <= scoreToBeat && !formSubmitted && (
+			{score <= scoreToBeat && !formSubmitted && data.length >= 10 && (
 				<p className='p-3 text-center'>
 					<span className='font-semibold'>{howManyMorePoints}</span> more{' '}
 					{howManyMorePoints === 1 ? 'point' : 'points'} needed to gain
