@@ -501,6 +501,7 @@ export const changeUsernames = (name) => {
 	return name.replaceAll('e', 'é');
 };
 
+// PokeAPI
 export const fetchPokemon = async () => {
 	const randomIds = getRandomIds();
 	const responses = await Promise.all(
@@ -509,12 +510,13 @@ export const fetchPokemon = async () => {
 	return responses.map((response) => response.data);
 };
 
-const prodApi = 'https://pokeserver-nt3v.onrender.com/scores';
-// const devApi = 'http://localhost:3000/scores'
+// Database
+const database = 'https://pokeserver-nt3v.onrender.com/scores';
+// const database = 'http://localhost:3000/scores'
 
 export const fetchScores = async () => {
 	try {
-		const response = await axios.get(prodApi);
+		const response = await axios.get(database);
 		return response.data;
 	} catch (e) {
 		console.error('Failed to fetch scores:', e.message);
@@ -524,7 +526,7 @@ export const fetchScores = async () => {
 
 export const postScore = async (formData) => {
 	try {
-		const response = await axios.post(prodApi, formData);
+		const response = await axios.post(database, formData);
 		return response.data;
 	} catch (e) {
 		console.error('Failed to post score:', e.message);
