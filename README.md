@@ -1,8 +1,52 @@
-# React + Vite
+# The Pokéquiz
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The [Pokéquiz](https://thepokequiz.netlify.app/) is a game made for fun and as something to add to my portfolio while learning react-query.
 
-Currently, two official plugins are available:
+The frontend connects to the [PokéAPI](https://pokeapi.co/) to get random Pokémon for each question and the backend stores the Pokéhall of Fame for getting all scores and posting a score.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+If you want to play around with the code or have any cool ideas get in touch!
+
+# Setting up the Backend
+
+1. Clone the backend repo
+
+    `git clone https://github.com/charlieBdev/pokeserver`
+
+2. Install dependencies
+
+    `npm i`
+
+> You will need Postgres to connect to the local DB for development.
+
+3. Create two .env files - .env.development and .env.production
+
+    .env.development should have... PGDATABASE=pokedex
+
+    .env.production should have... DATABASE_URL=`<askmeforthis>`
+
+4. Setup the local db and scores table
+
+    `npm run setup-db`
+
+    `npm run setup-table`
+
+5. Start the server (for local development)
+
+    `npm run dev`
+
+# Setting up the Frontend
+
+1. Clone this repo
+
+    `git clone https://github.com/charlieBdev`
+
+2. Install dependencies
+
+    `npm i`
+
+3. 
+
+
+The Kanban board is [here](https://trello.com/b/OGe5Htz6/pokequiz) if you fancy contributing.
+
+The live database for the Pokéhall of Fame is hosted on ElephantSQL and the API on Render.
