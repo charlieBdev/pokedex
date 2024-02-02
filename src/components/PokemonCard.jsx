@@ -58,12 +58,12 @@ const PokemonCard = ({
 				scale: 0.9,
 			}}
 			onClick={handleGuess}
-			className={`relative border-2 rounded w-28 h-28 shadow-lg hover:cursor-pointer hover:shadow-xl ${
+			className={`relative border-2 rounded w-28 h-28 lg:h-40 lg:w-40 shadow-lg hover:cursor-pointer hover:shadow-xl ${
 				!isClicked
 					? 'border-neutral-950'
 					: isCorrect
-					? 'border-green-500 border-4'
-					: 'border-red-500 border-4'
+					? 'border-green-500'
+					: 'border-red-500'
 			}`}
 		>
 			<img

@@ -3,7 +3,7 @@ import { changeUsernames, getPlaceSuffix } from '../utils';
 /* eslint-disable react/prop-types */
 const ScoreboardCard = ({ index, name, score }) => {
 	return (
-		<div className='grid grid-cols-3 w-3/4 mx-auto gap-3'>
+		<div className='grid grid-cols-3 hover:animate-pulse'>
 			<p className='w-1/2 text-right'>
 				{index + 1}
 				<sup>{getPlaceSuffix(index + 1)}</sup>
