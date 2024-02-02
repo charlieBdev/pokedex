@@ -53,7 +53,7 @@ const PokemonList = ({
 				correctAnswer={data[randomIndex].name}
 				gameStarted={gameStarted}
 			/>
-			<div className='grid grid-cols-1 sm:grid-cols-3 place-items-center gap-3'>
+			<div className='grid grid-cols-3 place-items-center gap-3'>
 				{data.map((query, index) => (
 					<PokemonCard
 						key={query.id}

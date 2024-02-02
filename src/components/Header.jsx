@@ -3,7 +3,7 @@ import Pokeball from './Pokeball';
 
 const Header = ({ gameStarted, gameOver }) => {
 	return (
-		<header className='flex flex-col justify-center items-center p-3 mt-12'>
+		<header className='flex flex-col justify-center items-center p-3'>
 			<div className='flex items-center'>
 				<Pokeball />
 				<h1 className='tracking-wide p-3 text-center text-3xl font-bold'>

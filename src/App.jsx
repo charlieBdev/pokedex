@@ -36,7 +36,7 @@ function App() {
 	return (
 		<div className='bg-gradient-to-br from-yellow-400 via-yellow-200 to-yellow-400 min-h-screen font-mono text-neutral-950 flex flex-col justify-between'>
 			<Header gameStarted={gameStarted} gameOver={gameOver} />
-			<div className='flex flex-col items-center -mt-12'>
+			<div className='flex flex-col items-center'>
 				{/* Start button */}
 				{!gameStarted && !gameOver && (
 					<StartBtn
