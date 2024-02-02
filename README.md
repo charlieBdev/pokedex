@@ -30,13 +30,13 @@ If you want to play around with the code or have any cool ideas get in touch!
 
     `npm run setup-table`
 
-5. Start the server (for local development)
+5. Start the server
 
     `npm run dev`
 
 ## Setting up the Frontend
 
-1. Clone this repo
+1. Clone the frontend repo
 
     `git clone https://github.com/charlieBdev`
 
@@ -71,7 +71,5 @@ If you want to play around with the code or have any cool ideas get in touch!
 The Kanban board is [here](https://trello.com/b/OGe5Htz6/pokequiz) if you would like to contribute. You will need to request access.
 
 The live database for the Pokéhall of Fame is hosted on ElephantSQL and the API on Render.
-
--------------------------------------------------------------------------------------------------------------------------------------------
 
 ### Thanks for looking!
