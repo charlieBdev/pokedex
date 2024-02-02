@@ -20,7 +20,7 @@ const Scoreboard = ({ data, isLoading, isError, refetch }) => {
 	}
 
 	return (
-		<div className='p-3 w-72 sm:w-80 md:w-96 mx-auto'>
+		<div className='w-72 sm:w-80 mx-auto'>
 			<h3 className='underline text-center p-3'>Pokéhall of Fame</h3>
 			{data.length === 0 && (
 				<p className=' text-center p-3'>Be the first to post a score!</p>

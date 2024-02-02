@@ -34,8 +34,8 @@ function App() {
 	});
 
 	return (
-		<div className='bg-gradient-to-br from-yellow-400 via-yellow-200 to-yellow-400 min-h-screen font-mono text-neutral-950 flex flex-col gap-3 items-center justify-between pt-8 sm:pt-28'>
-			<div className='flex flex-col'>
+		<div className='bg-gradient-to-br from-yellow-400 via-yellow-200 to-yellow-400 min-h-screen font-mono text-neutral-950 flex flex-col gap-3 justify-between pt-8 sm:pt-28'>
+			<div className='flex flex-col items-center'>
 				<Header gameStarted={gameStarted} gameOver={gameOver} />
 
 				{/* Start button */}

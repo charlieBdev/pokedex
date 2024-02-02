@@ -26,7 +26,7 @@ const StartBtn = ({
 					setIsAnyClicked
 				);
 			}}
-			className='border-2 border-neutral-950 shadow-lg mx-auto h-14 w-28 rounded hover:cursor-pointer hover:shadow-xl m-3'
+			className='border-2 border-neutral-950 shadow-lg h-14 w-28 rounded hover:cursor-pointer hover:shadow-xl m-3'
 		>
 			{text}
 		</motion.button>

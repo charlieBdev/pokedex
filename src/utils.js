@@ -512,7 +512,7 @@ export const fetchPokemon = async () => {
 
 // Database
 const database = 'https://pokeserver-nt3v.onrender.com/scores';
-// const database = 'http://localhost:3000/scores'
+// const database = 'http://localhost:3000/scores';
 
 export const fetchScores = async () => {
 	try {

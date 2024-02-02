@@ -8,8 +8,8 @@ import { Tick, Cross } from '../components';
 const Form = ({ score, data, isLoading, isError, refetch }) => {
 	const [playerName, setPlayerName] = useState('');
 	const [formSubmitted, setFormSubmitted] = useState(false);
-	const queryClient = useQueryClient();
 
+	const queryClient = useQueryClient();
 	const newScoreMutation = useMutation({
 		mutationFn: postScore,
 		onSuccess: () => {
@@ -44,7 +44,12 @@ const Form = ({ score, data, isLoading, isError, refetch }) => {
 		return null;
 	}
 
-	const topScore = data[0].score;
+	let topScore = 0;
+
+	if (data.length !== 0) {
+		topScore = data[0].score || 0;
+	}
+
 	const scoreToBeat = getScoreToBeat(data);
 
 	const handleSubmit = (e) => {
@@ -72,7 +77,7 @@ const Form = ({ score, data, isLoading, isError, refetch }) => {
 	return (
 		<>
 			{score > scoreToBeat && !formSubmitted && (
-				<form onSubmit={handleSubmit} className='flex gap-3 justify-center'>
+				<form onSubmit={handleSubmit} className='flex gap-3 justify-center p-3'>
 					<div className='relative flex'>
 						<input
 							value={playerName}
@@ -111,8 +116,8 @@ const Form = ({ score, data, isLoading, isError, refetch }) => {
 			{score <= scoreToBeat && !formSubmitted && data.length >= 10 && (
 				<p className='p-3 text-center'>
 					<span className='font-semibold'>{howManyMorePoints}</span> more{' '}
-					{howManyMorePoints === 1 ? 'point' : 'points'} needed to gain
-					legendary status
+					{howManyMorePoints === 1 ? 'point' : 'points'} needed for legendary
+					status
 				</p>
 			)}
 		</>
