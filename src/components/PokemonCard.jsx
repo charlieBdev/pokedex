@@ -31,13 +31,13 @@ const PokemonCard = ({
 				confetti();
 				setTimeout(() => {
 					getPokemon(refetchFunc, setRandomIndex, setIsAnyClicked);
-				}, 1000);
+				}, 2000);
 				setScore(score + 1);
 			} else {
 				setIsWrong(true);
 				setTimeout(() => {
 					endGame();
-				}, 1000);
+				}, 2000);
 			}
 		}
 	};
