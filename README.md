@@ -38,7 +38,7 @@ If you want to play around with the code or have any cool ideas get in touch!
 
 1. Clone the frontend repo
 
-    `git clone https://github.com/charlieBdev`
+    `git clone https://github.com/charlieBdev/pokedex`
 
 2. Install dependencies
 
