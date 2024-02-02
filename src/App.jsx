@@ -34,10 +34,9 @@ function App() {
 	});
 
 	return (
-		<div className='bg-gradient-to-br from-yellow-400 via-yellow-200 to-yellow-400 min-h-screen font-mono text-neutral-950 flex flex-col gap-3 justify-between pt-8 sm:pt-28'>
-			<div className='flex flex-col items-center'>
-				<Header gameStarted={gameStarted} gameOver={gameOver} />
-
+		<div className='bg-gradient-to-br from-yellow-400 via-yellow-200 to-yellow-400 min-h-screen font-mono text-neutral-950 flex flex-col justify-between'>
+			<Header gameStarted={gameStarted} gameOver={gameOver} />
+			<div className='flex flex-col items-center -mt-12'>
 				{/* Start button */}
 				{!gameStarted && !gameOver && (
 					<StartBtn
@@ -89,7 +88,7 @@ function App() {
 				{gameOver && (
 					<>
 						<p className='p-3 text-center'>
-							You scored <span className='font-semibold'> {score} </span>{' '}
+							You scored <span className='font-bold'> {score} </span>{' '}
 							{score === 1 ? 'point' : 'points'}
 						</p>
 						<Form
@@ -101,15 +100,15 @@ function App() {
 						/>
 					</>
 				)}
-				{!gameStarted && (
-					<Scoreboard
-						data={scoresData}
-						isLoading={scoresIsLoading}
-						isError={scoresIsError}
-						refetch={scoresRefetch}
-					/>
-				)}
 			</div>
+			{!gameStarted && (
+				<Scoreboard
+					data={scoresData}
+					isLoading={scoresIsLoading}
+					isError={scoresIsError}
+					refetch={scoresRefetch}
+				/>
+			)}
 			<Footer />
 		</div>
 	);

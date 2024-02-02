@@ -115,7 +115,7 @@ const Form = ({ score, data, isLoading, isError, refetch }) => {
 			)}
 			{score <= scoreToBeat && !formSubmitted && data.length >= 10 && (
 				<p className='p-3 text-center'>
-					<span className='font-semibold'>{howManyMorePoints}</span> more{' '}
+					<span className='font-bold'>{howManyMorePoints}</span> more{' '}
 					{howManyMorePoints === 1 ? 'point' : 'points'} needed for legendary
 					status
 				</p>

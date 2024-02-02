@@ -5,10 +5,7 @@ const Question = ({ correctAnswer, gameStarted }) => {
 		<div className='p-3'>
 			<h2 className='text-center'>
 				Which Pokémon is{' '}
-				<span className='font-semibold'>
-					{gameStarted ? upperName : '... '}
-				</span>
-				?
+				<span className='font-bold'>{gameStarted ? upperName : '... '}</span>?
 			</h2>
 		</div>
 	);

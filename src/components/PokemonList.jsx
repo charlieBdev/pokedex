@@ -81,7 +81,7 @@ const PokemonList = ({
 					{!isFetching && !isWrong && (
 						<p className='p-3 text-center'>
 							You have
-							<span className='font-semibold'> {score} </span>
+							<span className='font-bold'> {score} </span>
 							{score === 1 ? 'point' : 'points'}
 						</p>
 					)}
@@ -92,7 +92,7 @@ const PokemonList = ({
 						<motion.p
 							initial={{ scale: 0 }}
 							animate={{ scale: 1 }}
-							className='tracking-wide p-3 text-center text-xl font-semibold'
+							className='tracking-wide p-3 text-center font-bold'
 						>
 							GAME OVER
 						</motion.p>
