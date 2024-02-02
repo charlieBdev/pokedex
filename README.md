@@ -6,7 +6,7 @@ The frontend connects to the [PokéAPI](https://pokeapi.co/) to get random Poké
 
 If you want to play around with the code or have any cool ideas get in touch!
 
-# Setting up the Backend
+## Setting up the Backend
 
 1. Clone the backend repo
 
@@ -16,7 +16,7 @@ If you want to play around with the code or have any cool ideas get in touch!
 
     `npm i`
 
-> You will need Postgres to connect to the local DB for development.
+    > You will need Postgres to connect to the local DB for development.
 
 3. Create two .env files - .env.development and .env.production
 
@@ -30,23 +30,46 @@ If you want to play around with the code or have any cool ideas get in touch!
 
     `npm run setup-table`
 
-5. Start the server (for local development)
+5. Start the server
 
     `npm run dev`
 
-# Setting up the Frontend
+## Setting up the Frontend
 
-1. Clone this repo
+1. Clone the frontend repo
 
     `git clone https://github.com/charlieBdev`
 
 2. Install dependencies
 
-    `npm i`
+    ```npm i```
 
-3. 
+3. Start the client
 
+    ```npm run dev```
 
-The Kanban board is [here](https://trello.com/b/OGe5Htz6/pokequiz) if you fancy contributing.
+    > Change the database variable in utils to connect to the local DB
+
+## Technology
+
+**Backend**
+
+- Postgres
+- Express
+
+**Frontend**
+
+- React with Vite
+- Axios
+- React Query
+- Tailwind
+- Framer Motion
+- Canvas-Confetti
+
+### Notes
+
+The Kanban board is [here](https://trello.com/b/OGe5Htz6/pokequiz) if you would like to contribute. You will need to request access.
 
 The live database for the Pokéhall of Fame is hosted on ElephantSQL and the API on Render.
+
+### Thanks for looking!
