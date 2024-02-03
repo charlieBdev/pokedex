@@ -44,7 +44,9 @@ If you want to play around with the code or have any cool ideas get in touch!
 
     ```npm i```
 
-3. Start the client
+3. Create .env file with VITE_API=`<askmeforthis>`
+
+4. Start the client
 
     ```npm run dev```
 
