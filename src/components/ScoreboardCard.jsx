@@ -9,9 +9,12 @@ const ScoreboardCard = ({ index, name, score }) => {
 				<sup>{getPlaceSuffix(index + 1)}</sup>
 			</p>
 			<p>{changeUsernames(name)}</p>
-			<p className='text-right'>
-				{score} <sub>{score == 1 ? 'pt' : 'pts'}</sub>
-			</p>
+			<div className='grid grid-cols-2 gap-1'>
+				<p className='text-right'>{score}</p>
+				<p>
+					<sub>{score == 1 ? 'pt' : 'pts'}</sub>
+				</p>
+			</div>
 		</div>
 	);
 };
