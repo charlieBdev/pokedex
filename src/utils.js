@@ -501,7 +501,7 @@ export const changeUsernames = (name) => {
 	return name.replaceAll('e', 'é');
 };
 
-// PokeAPI
+// PokeAPI MOVE TO OWN FOLDER
 export const fetchPokemon = async () => {
 	const randomIds = getRandomIds();
 	const responses = await Promise.all(
@@ -510,9 +510,11 @@ export const fetchPokemon = async () => {
 	return responses.map((response) => response.data);
 };
 
-// Database
-const database = 'https://pokeserver-nt3v.onrender.com/scores';
+// API - MOVE TO API FOLDER
+const database = import.meta.env.VITE_API;
 // const database = 'http://localhost:3000/scores';
+
+// const dbPassword = import.meta.env.VITE_API_PW
 
 export const fetchScores = async () => {
 	try {
