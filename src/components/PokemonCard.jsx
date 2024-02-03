@@ -42,7 +42,7 @@ const PokemonCard = ({
 		}
 	};
 
-	const delay = index * 0.2;
+	const delay = index * 0.3;
 
 	return (
 		<motion.div
