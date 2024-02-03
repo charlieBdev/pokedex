@@ -1,9 +1,10 @@
 /* eslint-disable react/prop-types */
 import { useState } from 'react';
-import { badWords, getScoreToBeat, hasSwears, postScore } from '../utils';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import confetti from 'canvas-confetti';
+import { badWords, getScoreToBeat, hasSwears } from '../utils';
 import { Tick, Cross } from '../components';
+import confetti from 'canvas-confetti';
+import { postScore } from '../api';
 
 const Form = ({ score, data, isLoading, isError, refetch }) => {
 	const [playerName, setPlayerName] = useState('');

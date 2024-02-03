@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { fetchPokemon, fetchScores, getRandomIndex } from './utils';
+import { getRandomIndex } from './utils';
 import {
 	Footer,
 	Form,
@@ -9,6 +9,7 @@ import {
 	Scoreboard,
 	StartBtn,
 } from './components';
+import { fetchPokemon, fetchScores } from './api';
 
 function App() {
 	const [gameStarted, setGameStarted] = useState(false);

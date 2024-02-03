@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 export const getRandomIndex = () => {
 	// from 0-2
 	const random = Math.floor(Math.random() * 3);
@@ -499,41 +497,6 @@ export const getPlaceSuffix = (place) => {
 
 export const changeUsernames = (name) => {
 	return name.replaceAll('e', 'é');
-};
-
-// PokeAPI MOVE TO OWN FOLDER
-export const fetchPokemon = async () => {
-	const randomIds = getRandomIds();
-	const responses = await Promise.all(
-		randomIds.map((id) => axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`))
-	);
-	return responses.map((response) => response.data);
-};
-
-// API - MOVE TO API FOLDER
-const database = import.meta.env.VITE_API;
-// const database = 'http://localhost:3000/scores';
-
-// const dbPassword = import.meta.env.VITE_API_PW
-
-export const fetchScores = async () => {
-	try {
-		const response = await axios.get(database);
-		return response.data;
-	} catch (e) {
-		console.error('Failed to fetch scores:', e.message);
-		throw e;
-	}
-};
-
-export const postScore = async (formData) => {
-	try {
-		const response = await axios.post(database, formData);
-		return response.data;
-	} catch (e) {
-		console.error('Failed to post score:', e.message);
-		throw e;
-	}
 };
 
 // MOVE
