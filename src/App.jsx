@@ -15,7 +15,6 @@ function App() {
 	const [gameStarted, setGameStarted] = useState(false);
 	const [gameOver, setGameOver] = useState(false);
 	const [score, setScore] = useState(0);
-	const [playerName, setPlayerName] = useState('');
 	const [randomIndex, setRandomIndex] = useState(getRandomIndex());
 	const [isAnyClicked, setIsAnyClicked] = useState(false);
 
@@ -95,8 +94,6 @@ function App() {
 						</p>
 						<Form
 							score={score}
-							playerName={playerName}
-							setPlayerName={setPlayerName}
 							data={scoresData}
 							isLoading={scoresIsLoading}
 							isError={scoresIsError}
@@ -107,7 +104,6 @@ function App() {
 			</div>
 			{!gameStarted && (
 				<Scoreboard
-					playerName={playerName}
 					data={scoresData}
 					isLoading={scoresIsLoading}
 					isError={scoresIsError}
