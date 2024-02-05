@@ -12,7 +12,7 @@ If you want to play around with the code or have any cool ideas get in touch!
 
     `git clone https://github.com/charlieBdev/pokeserver`
 
-2. Install dependencies
+2. Install dependencies (cd into it first)
 
     `npm i`
 
@@ -40,7 +40,7 @@ If you want to play around with the code or have any cool ideas get in touch!
 
     `git clone https://github.com/charlieBdev/pokedex`
 
-2. Install dependencies
+2. Install dependencies (cd into it first)
 
     ```npm i```
 
