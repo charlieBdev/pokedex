@@ -1,13 +1,10 @@
 /* eslint-disable react/prop-types */
 import ScoreboardCard from './ScoreboardCard';
+import ScoresSkeleton from './ScoresSkeleton';
 
 const Scoreboard = ({ data, isLoading, isError, refetch }) => {
 	if (isLoading) {
-		return (
-			<p className='text-center p-3 animate-pulse'>
-				...loading Pokéhall of Fame...
-			</p>
-		);
+		return <ScoresSkeleton />;
 	}
 
 	if (isError) {

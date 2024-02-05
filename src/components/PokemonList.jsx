@@ -11,7 +11,6 @@ import QsSkeleton from './QsSkeleton';
 const PokemonList = ({
 	gameStarted,
 	setGameStarted,
-	gameOver,
 	setGameOver,
 	randomIndex,
 	setRandomIndex,

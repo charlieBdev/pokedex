@@ -9,6 +9,7 @@ import QsSkeleton from './QsSkeleton';
 import Question from './Question';
 import Scoreboard from './Scoreboard';
 import ScoreboardCard from './ScoreboardCard';
+import ScoresSkeleton from './ScoresSkeleton';
 import StartBtn from './StartBtn';
 import Tick from './Tick';
 
@@ -24,6 +25,7 @@ export {
 	Question,
 	Scoreboard,
 	ScoreboardCard,
+	ScoresSkeleton,
 	StartBtn,
 	Tick,
 };
