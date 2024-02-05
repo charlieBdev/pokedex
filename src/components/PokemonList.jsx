@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import { getPokemon } from '../utils';
 import PokemonCard from './PokemonCard';
 import Question from './Question';
+import QsSkeleton from './QsSkeleton';
 
 const PokemonList = ({
 	gameStarted,
@@ -33,9 +34,12 @@ const PokemonList = ({
 		queryClient.resetQueries(['pokemon']);
 	};
 
+	// first load?
 	if (isLoading) {
 		return (
-			<p className='text-center p-3 animate-pulse'>...loading Pokémon...</p>
+			<p className='text-center p-3 animate-pulse'>
+				<QsSkeleton score={score} />
+			</p>
 		);
 	}
 
@@ -49,30 +53,33 @@ const PokemonList = ({
 	return (
 		<div className='flex flex-col gap-3'>
 			{/* question and cards to choose - STAY */}
-			<Question
-				correctAnswer={data[randomIndex].name}
-				gameStarted={gameStarted}
-			/>
+			{!isFetching && (
+				<Question
+					correctAnswer={data[randomIndex].name}
+					gameStarted={gameStarted}
+				/>
+			)}
 			<div className='grid grid-cols-3 place-items-center gap-3'>
-				{data.map((query, index) => (
-					<PokemonCard
-						key={query.id}
-						ability={query.abilities[0].ability.name}
-						move={query.moves[0].move.name}
-						url={query.sprites.front_default}
-						isCorrect={index === randomIndex}
-						refetchFunc={refetchFunc}
-						setRandomIndex={setRandomIndex}
-						setIsAnyClicked={setIsAnyClicked}
-						isAnyClicked={isAnyClicked}
-						score={score}
-						setScore={setScore}
-						index={index}
-						endGame={endGame}
-						getPokemon={getPokemon}
-						setIsWrong={setIsWrong}
-					/>
-				))}
+				{!isFetching &&
+					data.map((query, index) => (
+						<PokemonCard
+							key={query.id}
+							ability={query.abilities[0].ability.name}
+							move={query.moves[0].move.name}
+							url={query.sprites.front_default}
+							isCorrect={index === randomIndex}
+							refetchFunc={refetchFunc}
+							setRandomIndex={setRandomIndex}
+							setIsAnyClicked={setIsAnyClicked}
+							isAnyClicked={isAnyClicked}
+							score={score}
+							setScore={setScore}
+							index={index}
+							endGame={endGame}
+							getPokemon={getPokemon}
+							setIsWrong={setIsWrong}
+						/>
+					))}
 			</div>
 
 			{/* live score - STAY */}
@@ -86,7 +93,9 @@ const PokemonList = ({
 						</p>
 					)}
 					{isFetching && (
-						<p className='p-3 text-center animate-pulse'>...loading...</p>
+						<p className='p-3 text-center animate-pulse'>
+							<QsSkeleton score={score} />
+						</p>
 					)}
 					{isWrong && (
 						<motion.p
