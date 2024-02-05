@@ -10,21 +10,19 @@ const CardSkelly = () => {
 
 const QsSkeleton = ({ score }) => {
 	return (
-		<>
-			<div className='flex flex-col gap-3'>
-				<p className='text-center p-3'>Which Pokémon is ...... ?</p>
-				<div className='grid grid-cols-3 place-items-center gap-3'>
-					<CardSkelly />
-					<CardSkelly />
-					<CardSkelly />
-				</div>
-				<p className='p-3 text-center'>
-					You have
-					<span className='font-bold'> {score} </span>
-					{score === 1 ? 'point' : 'points'}
-				</p>
+		<div className='flex flex-col gap-3'>
+			<p className='text-center p-3'>Which Pokémon is ...... ?</p>
+			<div className='grid grid-cols-3 place-items-center gap-3'>
+				<CardSkelly />
+				<CardSkelly />
+				<CardSkelly />
 			</div>
-		</>
+			<p className='p-3 text-center'>
+				You have
+				<span className='font-bold'> {score} </span>
+				{score === 1 ? 'point' : 'points'}
+			</p>
+		</div>
 	);
 };
 

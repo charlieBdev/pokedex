@@ -1,9 +1,13 @@
 import { changeUsernames, getPlaceSuffix } from '../utils';
 
 /* eslint-disable react/prop-types */
-const ScoreboardCard = ({ index, name, score }) => {
+const ScoreboardCard = ({ index, name, score, playerName }) => {
 	return (
-		<div className='grid grid-cols-3 hover:animate-pulse'>
+		<div
+			className={`grid grid-cols-3 ${
+				name === playerName ? 'animate-pulse' : ''
+			}`}
+		>
 			<p className='w-1/2 text-right'>
 				{index + 1}
 				<sup>{getPlaceSuffix(index + 1)}</sup>

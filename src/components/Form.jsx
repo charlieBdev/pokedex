@@ -6,8 +6,15 @@ import { Tick, Cross } from '../components';
 import confetti from 'canvas-confetti';
 import { postScore } from '../api';
 
-const Form = ({ score, data, isLoading, isError, refetch }) => {
-	const [playerName, setPlayerName] = useState('');
+const Form = ({
+	score,
+	playerName,
+	setPlayerName,
+	data,
+	isLoading,
+	isError,
+	refetch,
+}) => {
 	const [formSubmitted, setFormSubmitted] = useState(false);
 
 	const queryClient = useQueryClient();

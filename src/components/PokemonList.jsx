@@ -36,9 +36,9 @@ const PokemonList = ({
 	// first load?
 	if (isLoading) {
 		return (
-			<p className='text-center p-3 animate-pulse'>
-				<QsSkeleton score={score} />
-			</p>
+			// <p className='text-center p-3 animate-pulse'>
+			<QsSkeleton score={score} />
+			// </p>
 		);
 	}
 
@@ -91,11 +91,7 @@ const PokemonList = ({
 							{score === 1 ? 'point' : 'points'}
 						</p>
 					)}
-					{isFetching && (
-						<p className='p-3 text-center animate-pulse'>
-							<QsSkeleton score={score} />
-						</p>
-					)}
+
 					{isWrong && (
 						<motion.p
 							initial={{ scale: 0 }}
@@ -106,6 +102,11 @@ const PokemonList = ({
 						</motion.p>
 					)}
 				</>
+			)}
+			{isFetching && (
+				// <p className='p-3 text-center animate-pulse'>
+				<QsSkeleton score={score} />
+				// </p>
 			)}
 		</div>
 	);

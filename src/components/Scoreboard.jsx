@@ -2,7 +2,7 @@
 import ScoreboardCard from './ScoreboardCard';
 import ScoresSkeleton from './ScoresSkeleton';
 
-const Scoreboard = ({ data, isLoading, isError, refetch }) => {
+const Scoreboard = ({ playerName, data, isLoading, isError, refetch }) => {
 	if (isLoading) {
 		return <ScoresSkeleton />;
 	}
@@ -29,6 +29,7 @@ const Scoreboard = ({ data, isLoading, isError, refetch }) => {
 						index={index}
 						name={score.playername}
 						score={score.score}
+						playerName={playerName}
 					/>
 				))}
 			</ul>
