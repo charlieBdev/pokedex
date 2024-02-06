@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 
-const CardSkelly = () => {
+export const CardSkelly = () => {
 	return (
 		<div className='rounded w-28 h-28 lg:h-40 lg:w-40 shadow-lg grid place-items-center animate-pulse bg-neutral-950 text-yellow-200 text-3xl font-bold'>
 			?
@@ -8,7 +8,7 @@ const CardSkelly = () => {
 	);
 };
 
-const QsSkeleton = ({ score }) => {
+export const QsSkeleton = ({ score }) => {
 	return (
 		<div className='flex flex-col gap-3'>
 			<p className='text-center p-3'>Which Pokémon is ...... ?</p>
@@ -25,5 +25,3 @@ const QsSkeleton = ({ score }) => {
 		</div>
 	);
 };
-
-export default QsSkeleton;

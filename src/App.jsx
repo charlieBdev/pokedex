@@ -102,15 +102,17 @@ function App() {
 					</>
 				)}
 			</div>
-			{!gameStarted && (
-				<Scoreboard
-					data={scoresData}
-					isLoading={scoresIsLoading}
-					isError={scoresIsError}
-					refetch={scoresRefetch}
-				/>
-			)}
-			<Footer />
+			<div>
+				{!gameStarted && (
+					<Scoreboard
+						data={scoresData}
+						isLoading={scoresIsLoading}
+						isError={scoresIsError}
+						refetch={scoresRefetch}
+					/>
+				)}
+				<Footer />
+			</div>
 		</div>
 	);
 }
